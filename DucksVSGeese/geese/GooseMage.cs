@@ -1,5 +1,8 @@
 namespace DucksVSGeese
 {
+    /// <summary>
+    /// Class for a Goose Witch, a basic magical attacker.
+    /// </summary>
     public class GooseMage : Goose
     {
         private const int MaxHP = 64;
@@ -10,13 +13,23 @@ namespace DucksVSGeese
         {
             // idk maybe do some duck stuff here
         }
-        public GooseMage() : this(Goose.GetRandomName()) {}
+        public GooseMage() : this(Goose.GetRandomName()) { }
 
+        /// <summary>
+        /// Goose Witches attack 4 times for 5 base damage per hit. Their attacks deal Magical damage.
+        /// </summary>
+        /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
             return new Attack("Feather Cast", ScaleHits([5, 5, 5, 5]), Attribute.Magical);
         }
 
+        /// <summary>
+        /// Lowers the current HP of this combatant depending on the given attack.
+        /// Goose Witches take more damage from physical and elemental attacks and less damage from magical attacks.
+        /// </summary>
+        /// <param name="attack">The attack the combatant is taking damage from.</param>
+        /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;

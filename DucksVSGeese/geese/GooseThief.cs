@@ -1,5 +1,8 @@
 namespace DucksVSGeese
 {
+    /// <summary>
+    /// Class for a Goose Vandal, a basic poison attacker.
+    /// </summary>
     public class GooseThief : Goose
     {
         private const int MaxHP = 50;
@@ -10,8 +13,12 @@ namespace DucksVSGeese
         {
             // idk maybe do some duck stuff here
         }
-        public GooseThief() : this(Goose.GetRandomName()) {}
+        public GooseThief() : this(Goose.GetRandomName()) { }
 
+        /// <summary>
+        /// Goose Vandals attack 1-3 times for 5 or 10 base damage per hit. Their attacks deal Poison damage.
+        /// </summary>
+        /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
             // hits 1-3 times
@@ -24,6 +31,12 @@ namespace DucksVSGeese
             return new Attack("Harrass & Deface", ScaleHits(hits), Attribute.Poison);
         }
 
+        /// <summary>
+        /// Lowers the current HP of this combatant depending on the given attack.
+        /// Goose Vandals take more damage from elemental attacks and less damage from poison attacks.
+        /// </summary>
+        /// <param name="attack">The attack the combatant is taking damage from.</param>
+        /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;

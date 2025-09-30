@@ -1,35 +1,28 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Goose Warrior, a basic physical attacker.
+    /// Class for a more defensive Duck Fighter
     /// </summary>
-    public class GooseFighter : Goose
+    public class DuckFighterD : Duck
     {
-        private const int MaxHP = 64;
-        private const string CombatantClass = "Goose Warrior";
+        private const int MaxHP = 150;
+        public const string CombatantClass = "Duck Fighter";
         private const bool AttacksAllies = false;
-        private const double Regeneration = .05;
-        public GooseFighter(string name) : base(CombatantClass, name, MaxHP, AttacksAllies, Regeneration)
+        public DuckFighterD(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-        public GooseFighter() : this(Goose.GetRandomName()) { }
+        public DuckFighterD() : this(Duck.GetRandomName()) { }
 
         /// <summary>
-        /// Goose Warriors attack once for 15 base damage. Their attacks deal Physical damage.
+        /// Duck Fighters attack once for 25 base damage. Their attacks deal Physical damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Eye Peck", ScaleHits([15]), Attribute.Physical);
+            return new Attack("Eye Poke", ScaleHits([25]), Attribute.Physical);
         }
 
-        /// <summary>
-        /// Lowers the current HP of this combatant depending on the given attack.
-        /// Goose Warriors take more damage from magical and elemental attacks and less damage from physical attacks.
-        /// </summary>
-        /// <param name="attack">The attack the combatant is taking damage from.</param>
-        /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;

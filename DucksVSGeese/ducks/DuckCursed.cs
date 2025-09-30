@@ -1,5 +1,8 @@
 namespace DucksVSGeese
 {
+    /// <summary>
+    /// Class for an Accursed Duck, a basic cursed attacker.
+    /// </summary>
     public class DuckCursed : Duck
     {
         private const int MaxHP = 125;
@@ -9,8 +12,12 @@ namespace DucksVSGeese
         {
             // idk maybe do some duck stuff here
         }
-        public DuckCursed() : this(Duck.GetRandomName()) {}
+        public DuckCursed() : this(Duck.GetRandomName()) { }
 
+        /// <summary>
+        /// Accursed Ducks attack twice for 0-50 base damage per hit. Their attacks deal Cursed damage.
+        /// </summary>
+        /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
             int[] hits = [0, 0];
@@ -28,9 +35,15 @@ namespace DucksVSGeese
             return new Attack("Unholy Quack", ScaleHits(hits), Attribute.Cursed);
         }
 
+        /// <summary>
+        /// Lowers the current HP of this combatant depending on the given attack.
+        /// Accursed Ducks take more damage from elemental and holy attacks and less damage from every other attack.
+        /// </summary>
+        /// <param name="attack">The attack the combatant is taking damage from.</param>
+        /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
-            double modifier = 1.0;
+            double modifier;
             Attribute attribute = attack.Attribute;
             if (attribute == Attribute.Cursed) modifier = 0.5; // greatly resist cursed attacks
             else if (attribute == Attribute.Holy) modifier = 1.5; // take a lot of extra damage from holy attacks
