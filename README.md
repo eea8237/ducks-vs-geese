@@ -1,2 +1,3 @@
 # ducks-vs-geese
-recreating and expanding gcis 124 activity in c-sharp
+Recreating and expanding gcis 124 activity in C#
+This is mainly for practicing C#.

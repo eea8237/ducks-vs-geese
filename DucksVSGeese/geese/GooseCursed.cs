@@ -26,7 +26,7 @@ namespace DucksVSGeese
                     hits[i] += RNG.Next(1, 16);
                 }
             }
-            return new Attack("Unearthly Quack", ScaleHits(hits), Attribute.Cursed);
+            return new Attack("Unearthly Honk", ScaleHits(hits), Attribute.Cursed);
         }
 
         public override int TakeDamage(Attack attack)
