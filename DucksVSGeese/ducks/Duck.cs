@@ -2,7 +2,7 @@ namespace DucksVSGeese
 {
     public abstract class Duck : Combatant
     {
-        private readonly static string[] DuckNames = ["Duck", "Uck", "Muck", "Puck", "Plumage", "Feathers", "Quack", "Bread", "Kcud", "Duc", "Du", "*nibble*", "QUACK", "Duckley", "Duckbert", "Duckline", "Duckling", "Duckduck"];
+        private readonly static string[] DuckNames = ["Duck", "Uck", "Muck", "Puck", "Plumage", "Feathers", "Quack", "Bread", "Kcud", "Duc", "Du", "*nibble*", "QUACK", "Duckley", "Duckbert", "Duckline", "Duckling", "Duckduck", "Ducduc", "Ducklin", "Truck"];
         public static readonly Random RNG = new Random();
         // should ducks have experience or something? so they can level up?
         // and maybe geese give out experience?

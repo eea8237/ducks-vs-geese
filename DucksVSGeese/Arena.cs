@@ -13,7 +13,7 @@ namespace DucksVSGeese
 
         private static readonly Random RNG = new Random();
         private const int DuckPartySize = 4;
-        private const int GoosePartySize = 6;
+        private const int GoosePartySize = 4;
         private const int GooseTypes = 5;
         private const int NumBattles = 5;
         static void Test()
@@ -123,6 +123,12 @@ namespace DucksVSGeese
 
                 }
             }
+            if (!skip)
+            {
+                Console.Write("Skip input? [Y/N]: ");
+                string? answer = Console.ReadLine();
+                if (answer.ToLower().Equals("y")) skip = true; // make this work somehow
+            }
 
             // now do the fighting
             // generate 10 random teams of geese and have them fight the duck party
@@ -138,7 +144,7 @@ namespace DucksVSGeese
                     Console.WriteLine($"Geese: [{string.Join(", ", geese)}]\n");
 
                     // ducks go first i guess
-                    Console.WriteLine("Ducks Turn");
+                    Console.WriteLine("Ducks Turn:\n");
                     if (ducks.Count > 0 && geese.Count > 0)
                     {
                         Combatant? felled = Fight(geese, ducks);
@@ -147,7 +153,7 @@ namespace DucksVSGeese
                         if (felled != null) felledGeese.Add(felled);
                     }
 
-                    Console.WriteLine("Geese Turn:");
+                    Console.WriteLine("Geese Turn:\n");
                     if (ducks.Count > 0 && geese.Count > 0)
                     {
                         // geese go second
@@ -155,8 +161,6 @@ namespace DucksVSGeese
                         Console.WriteLine();
                         if (felled != null) felledDucks.Add(felled);
                     }
-
-                    if (!skip) Console.ReadLine();
                 }
                 Console.WriteLine("\nGame Over.");
                 Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
@@ -187,7 +191,7 @@ namespace DucksVSGeese
                 // target should be a random member of the defending party
                 int targetIndex = RNG.Next(defending.Count);
                 Combatant target = defending[targetIndex];
-                Console.WriteLine($"{c} sets their eyes on {target}!");
+                Console.WriteLine($"{c} aims for {target}!");
 
                 // attack target
                 Attack attack = c.Attack();

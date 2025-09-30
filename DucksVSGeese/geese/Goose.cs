@@ -3,7 +3,7 @@ namespace DucksVSGeese
     public abstract class Goose : Combatant
     {
         protected static readonly Random RNG = new();
-        private static readonly string[] GooseNames = ["Goosetaf", "Agoosetus", "Agoosetine", "Goose", "Geese", "Gayce", "Gus", "Giise", "Gysse", "Asparagoose", "Goosewich", "Gooselin", "Gooserett", "Bildegoose", "Honkrietta", "Honking", "Bread?", "Fishkiller", "Duckslayer", "HONK", "Honk"];
+        private static readonly string[] GooseNames = ["Goosetaf", "Agoosetus", "Agoosetine", "Goose", "Geese", "Gayce", "Gus", "Giise", "Gysse", "Asparagoose", "Goosewich", "Gooselin", "Gooserett", "Bildegoose", "Honkrietta", "Honking", "Bread?", "Fishkiller", "Duckslayer", "HONK", "Honk", "Loose", "Choose", "Moose", "Noose", "Joose"];
         protected double regenAmount;
         protected Goose(string combatClass, string name, int maxHP, bool attackAllies, double regenAmount) : base(combatClass, name, maxHP, attackAllies)
         {
