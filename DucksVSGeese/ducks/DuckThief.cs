@@ -1,0 +1,44 @@
+namespace DucksVSGeese
+{
+    public class DuckThief : Duck
+    {
+        private const int MaxHP = 125;
+        public const string CombatantClass = "Duck Thief";
+        private const bool AttacksAllies = false;
+        public DuckThief(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        {
+            // idk maybe do some duck stuff here
+        }
+        public DuckThief() : this(Duck.GetRandomName()) {}
+
+        public override Attack Attack()
+        {
+            // hits 1-2 times
+            int[] hits = new int[RNG.Next(1, 3)];
+            for (int i = 0; i < hits.Length; i++)
+            {
+                // 1 in 3 chance for 20 damage, otherwise 10 damage
+                hits[i] = RNG.Next(3) == 0 ? 20 : 10;
+            }
+            return new Attack("Snatch", ScaleHits(hits), Attribute.Poison);
+        }
+
+        public override int TakeDamage(Attack attack)
+        {
+            double modifier = 1.0;
+            Attribute attribute = attack.Attribute;
+            if (attribute == Attribute.Poison) modifier = .75; // take less damage from poison attacks
+            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+
+            int totalDamage = 0;
+            foreach (int hit in attack.Hits)
+            {
+                int damage = Convert.ToInt32(hit * modifier);
+                totalDamage += damage;
+                currentHP -= damage;
+                currentHP = Combatant.CapHP(currentHP, maxHP);
+            }
+            return totalDamage;
+        }
+    }
+}

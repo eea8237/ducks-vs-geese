@@ -1,0 +1,232 @@
+﻿using System.Reflection;
+
+namespace DucksVSGeese
+{
+    public abstract class Arena
+    {
+        private static readonly HashSet<string> FighterAliases = ["duck fighter", "fighter", "f", "0"];
+        private static readonly HashSet<string> MageAliases = ["duck mage", "mage", "m", "1"];
+        private static readonly HashSet<string> ThiefAliases = ["duck thief", "thief", "t", "2"];
+        private static readonly HashSet<string> ClericAliases = ["duck cleric", "cleric", "cl", "3"];
+        private static readonly HashSet<string> CursedAliases = ["duck cursed", "cursed", "cu", "a", "acu", "ac", "accursed duck", "accursed", "4"];
+
+        private static readonly Random RNG = new Random();
+        private const int DuckPartySize = 4;
+        private const int GoosePartySize = 6;
+        private const int GooseTypes = 5;
+        private const int NumBattles = 5;
+        static void Test()
+        {
+            try
+            {
+                Attack test = new Attack("Test Attack", [1, 2, 3, 4], Attribute.Elemental);
+                for (int i = 0; i < test.Hits.Length; i++)
+                {
+                    Console.Write($"{test.Hits[i]} ");
+                }
+
+                Console.WriteLine("\n" + test);
+
+                Combatant fighterDuck = new DuckFighter("Duc");
+                Combatant mageDuck = new DuckMage("Uck");
+                Combatant thiefDuck = new DuckThief("Dck");
+                Combatant clericDuck = new DuckCleric("Uckd");
+                Combatant cursedDuck = new DuckCursed("Kcud");
+
+                Combatant fighterGoose = new GooseFighter("Goose");
+                Combatant mageGoose = new GooseMage("Oose");
+                Combatant thiefGoose = new GooseThief("Gose");
+                Combatant clericGoose = new GooseCleric("Geese");
+                Combatant cursedGoose = new GooseCursed("Esoog");
+
+                // fighter.TakeDamage(mage.Attack());
+                // mage.TakeDamage(fighter.Attack());
+                // thief.TakeDamage(thief.Attack());
+                // cleric.TakeDamage(cursed.Attack());
+                // cursed.TakeDamage(thief.Attack());
+
+                Combatant[] Combatants = [fighterDuck, mageDuck, thiefDuck, clericDuck, cursedDuck, fighterGoose, mageGoose, thiefGoose, clericGoose, cursedGoose];
+                // test each Combatant with each other Combatant
+                foreach (Combatant Combatant in Combatants)
+                {
+                    Combatant current = Combatant;
+                    foreach (Combatant c in Combatants)
+                    {
+                        Console.WriteLine(Combatant);
+                        Attack attack = c.Attack();
+                        int damage = Combatant.TakeDamage(attack);
+                        Console.WriteLine($"Attack: {attack}");
+                        Console.WriteLine($"{Combatant} is attacked by {c.GetTitle()} for {damage} damage!");
+                        Console.WriteLine();
+                        Combatant.Heal(10000);
+                    }
+                    Console.WriteLine();
+                }
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Whoops.");
+            }
+        }
+
+        static void Battle()
+        {
+            // ask the user for a team of four ducks
+            // example input: fighter fighter fighter fighter
+            // ... maybe offer quick creation and slow creation?
+            // maybe pull names from a name pool
+            // could also have the user enter numbers corresponding to the
+            List<Duck> ducks = new List<Duck>();
+            while (true)
+            {
+                Console.Write("Enter your team of 4 ducks: ");
+                string? answer = Console.ReadLine();
+                if (answer == null)
+                {
+                    Console.WriteLine("Invalid answer.");
+                }
+                else if (answer == "quit")
+                {
+                    break;
+                }
+                else
+                {
+                    string[] answerTokens = answer.Split(" ");
+                    if (answerTokens.Length != DuckPartySize)
+                    {
+                        Console.WriteLine("Must have a party of four ducks.");
+                        continue;
+                    }
+                    else
+                    {
+                        foreach (string s in answerTokens)
+                        {
+                            // add duck based on what alias the string maps into
+                            List<HashSet<string>> ducktionary = [FighterAliases, MageAliases, ThiefAliases, ClericAliases, CursedAliases];
+                            if (FighterAliases.Contains(s)) ducks.Add(new DuckFighter());
+                            else if (MageAliases.Contains(s)) ducks.Add(new DuckMage());
+                            else if (ThiefAliases.Contains(s)) ducks.Add(new DuckThief());
+                            else if (ClericAliases.Contains(s)) ducks.Add(new DuckCleric());
+                            else if (CursedAliases.Contains(s)) ducks.Add(new DuckCursed());
+                            else
+                            {
+                                Console.WriteLine("Invalid duck.");
+                                ducks = new List<Duck>();
+                            }
+                        }
+                        Console.WriteLine(string.Join("\n", ducks));
+                        break;
+                    }
+
+                }
+            }
+
+            // now do the fighting
+            // generate 10 random teams of geese and have them fight the duck party
+            for (int i = 1; i <= NumBattles; i++)
+            {
+                Console.WriteLine($"ROUND {i}!");
+                List<Goose> geese = GenerateGeese();
+
+                while (!PartyDown(ducks) && !PartyDown(geese))
+                {
+                    // ducks go first i guess
+                    Fight(ducks, geese);
+                    Console.WriteLine($"Geese: [{string.Join(", ", geese)}]");
+                    Console.WriteLine();
+
+                    if (!PartyDown(ducks) && !PartyDown(geese))
+                    {
+                        // geese go second
+                        Fight(geese, ducks);
+                        Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
+                        Console.WriteLine("\n");
+                    }
+                }
+                
+                if (PartyDown(ducks)) // if ducks go down it's game over
+                {
+                    Console.WriteLine("The ducks have been vanquished...");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("The geese have been conquered!");
+                }
+                // if geese go down good for you
+            }
+        }
+
+        static void Fight<T1, T2>(List<T1> attacking, List<T2> defending) where T1 : Combatant where T2 : Combatant
+        {
+            // what does a fight even look like
+            // one combattant strikes a random combattant in the opposing party
+            // each combattant in party 1 attacks a random combattant in party 2
+
+            foreach (Combatant c in attacking)
+            {
+                // target should be a random member of the defending party
+                int targetIndex = RNG.Next(defending.Count);
+                Combatant target = defending[targetIndex]; 
+                Console.WriteLine($"{c} sets their eyes on {target}!");
+
+                Attack attack = c.Attack();
+                int damage = target.TakeDamage(attack);
+                Console.WriteLine($"Attack: {attack}");
+                Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target.GetTitle()} HP: {target.GetHPString()}");
+                // if attack knocked the target out, remove the target from the defending party
+                if (!target.IsConscious())
+                {
+                    Console.WriteLine($"{target.GetTitle()} was felled by {c.GetTitle()}...\n");
+                    defending.RemoveAt(targetIndex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Helper method to determine if an entire party has been rendered unconscious.
+        /// </summary>
+        /// <param name="party">Party whose status should be checked</param>
+        /// <returns> true if whole party is unconscious, false otherwise </returns>
+        static bool PartyDown<T>(List<T> party) where T : Combatant
+        {
+            return party.Count == 0;
+        }
+
+        private static List<Goose> GenerateGeese()
+        {
+            List<Goose> geese = new List<Goose>();
+            // just choose 6 random geese
+            for (int i = 0; i < GoosePartySize; i++)
+            {
+                int selection = RNG.Next(GooseTypes);
+                switch (selection)
+                {
+                    case 0:
+                        geese.Add(new GooseFighter());
+                        break;
+                    case 1:
+                        geese.Add(new GooseMage());
+                        break;
+                    case 2:
+                        geese.Add(new GooseThief());
+                        break;
+                    case 3:
+                        geese.Add(new GooseCleric());
+                        break;
+                    case 4:
+                        geese.Add(new GooseCursed());
+                        break;
+                }
+            }
+
+            return geese;
+        }
+        static void Main(string[] args)
+        {
+            // Test();
+            Battle();
+        }
+
+    }
+}
