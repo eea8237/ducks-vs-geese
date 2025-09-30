@@ -132,10 +132,11 @@ namespace DucksVSGeese
             }
 
             // now do the fighting
-            // generate 10 random teams of geese and have them fight the duck party
+            // generate 10 random teams of geese and have them fight the duck party 
+
             for (int i = 1; i <= NumBattles; i++)
             {
-                Console.WriteLine($"Battle {i}\n");
+                Console.WriteLine($"\n\nBattle {i}\n");
                 List<Goose> geese = GenerateGeese();
                 int round = 1;
                 while (ducks.Count > 0 && geese.Count > 0)
@@ -152,7 +153,7 @@ namespace DucksVSGeese
                         if (felled != null) felledGeese.Add(felled);
                     }
 
-                    Console.WriteLine("\nGeese Turn:");
+                    Console.WriteLine("Geese Turn:");
                     if (ducks.Count > 0 && geese.Count > 0)
                     {
                         // geese go second
@@ -166,6 +167,9 @@ namespace DucksVSGeese
                 PrintParties(ducks, geese, felledDucks, felledGeese);
                 // reset the felled geese list
                 felledGeese = new List<Combatant>();
+                // perhaps do this with the ducks too if i want to complicate this a little more
+                // like give the option to add new ducks inbetween battles
+                // probably not for free though
 
 
                 if (ducks.Count == 0) // if ducks go down it's game over
@@ -203,8 +207,6 @@ namespace DucksVSGeese
 
         static Combatant? Fight<T1, T2>(List<T1> attacking, List<T2> defending, bool skip = false) where T1 : Combatant where T2 : Combatant
         {
-            // what does a fight even look like
-            // one combattant strikes a random combattant in the opposing party
             // each combattant in party 1 attacks a random combattant in party 2
 
             foreach (Combatant c in attacking)
@@ -223,7 +225,7 @@ namespace DucksVSGeese
                 // if attack knocked the target out, remove the target from the defending party
                 if (!target.IsConscious())
                 {
-                    Console.WriteLine($"{target.GetTitle()} was felled by {c.GetTitle()}...\n");
+                    Console.WriteLine($"{target.GetTitle()} was felled by {c.GetTitle()}...");
                     // could keep track of the felled combatants
                     Combatant felled = target;
                     defending.RemoveAt(targetIndex);
@@ -249,7 +251,7 @@ namespace DucksVSGeese
         {
             List<Goose> geese = new List<Goose>();
             // just choose 6 random geese
-            for (int i = 0; i < GoosePartySize; i++)
+            while (geese.Count < GoosePartySize)
             {
                 int selection = RNG.Next(GooseTypes);
                 switch (selection)
@@ -264,7 +266,14 @@ namespace DucksVSGeese
                         geese.Add(new GooseThief());
                         break;
                     case 3:
-                        geese.Add(new GooseCleric());
+                        // i also feel like there will be an issue if there's a full party of clerics on both sides, so check the goose party to see if everyone else is already a cleric
+                        if (geese.Count == GoosePartySize - 1) // only do this check if we're filling out the last space
+                        {
+                            int clerics = 0;
+                            foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.CombatantClass) clerics++;
+                            // if the party isn't entirely clerics you can add another cleric
+                            if (clerics < GoosePartySize - 1) geese.Add(new GooseCleric());
+                        } else geese.Add(new GooseCleric());
                         break;
                     case 4:
                         geese.Add(new GooseCursed());

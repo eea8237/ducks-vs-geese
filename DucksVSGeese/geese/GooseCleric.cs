@@ -3,7 +3,7 @@ namespace DucksVSGeese
     public class GooseCleric : Goose
     {
         private const int MaxHP = 78;
-        private const string CombatantClass = "Goose Priest";
+        public const string CombatantClass = "Goose Priest";
         private const bool AttacksAllies = false;
         private const double Regeneration = .02;
 
