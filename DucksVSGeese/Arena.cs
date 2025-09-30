@@ -163,9 +163,10 @@ namespace DucksVSGeese
                     }
                     round++;
                 }
-                Console.WriteLine("Battle Over!");
+                Console.WriteLine($"Battle {i} Over!\n");
                 PrintParties(ducks, geese, felledDucks, felledGeese);
                 // reset the felled geese list
+                // or just print it when everything's done with. maybe keep track of the round they were felled in?
                 felledGeese = new List<Combatant>();
                 // perhaps do this with the ducks too if i want to complicate this a little more
                 // like give the option to add new ducks inbetween battles
@@ -174,12 +175,12 @@ namespace DucksVSGeese
 
                 if (ducks.Count == 0) // if ducks go down it's game over
                 {
-                    Console.WriteLine("Game Over.\nThe ducks have been vanquished...");
+                    Console.WriteLine("\nGame Over.\nThe ducks have been vanquished...");
                     break;
                 }
                 else // if geese go down good for you
                 {
-                    Console.WriteLine("The geese have been conquered!");
+                    Console.WriteLine("\nThe geese have been conquered!");
                     if (i < NumBattles) Console.WriteLine("Next battle!!");
                     // for now let's just heal up the duck party
                     foreach (Combatant duck in ducks) duck.HealAll();
@@ -200,7 +201,7 @@ namespace DucksVSGeese
            where T4 : Combatant
         {
             Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
-            Console.WriteLine($"Geese: [{string.Join(", ", geese)}]\n");
+            Console.WriteLine($"Geese: [{string.Join(", ", geese)}]");
             if (felledDucks != null) Console.WriteLine($"Felled Ducks: [{string.Join(", ", felledDucks)}]");
             if (felledGeese != null) Console.WriteLine($"Felled Geese: [{string.Join(", ", felledGeese)}]");
         }
