@@ -13,7 +13,7 @@ namespace DucksVSGeese
 
         private static readonly Random RNG = new Random();
         private const int DuckPartySize = 4;
-        private const int GoosePartySize = 4;
+        private const int GoosePartySize = 6;
         private const int GooseTypes = 5;
         private const int NumBattles = 5;
         static void Test()
@@ -70,7 +70,7 @@ namespace DucksVSGeese
             }
         }
 
-        static void Battle(bool skip=false)
+        static void Battle(bool skip = false)
         {
             // ask the user for a team of four ducks
             // example input: fighter fighter fighter fighter
@@ -127,33 +127,32 @@ namespace DucksVSGeese
             {
                 Console.Write("Skip input? [Y/N]: ");
                 string? answer = Console.ReadLine();
-                if (answer.ToLower().Equals("y")) skip = true; // make this work somehow
+                if (answer != null) answer = answer.ToLower();
+                if (answer != null && answer.ToLower() == "y") skip = true;
             }
 
             // now do the fighting
             // generate 10 random teams of geese and have them fight the duck party
             for (int i = 1; i <= NumBattles; i++)
             {
-                Console.WriteLine($"Battle {i}");
+                Console.WriteLine($"Battle {i}\n");
                 List<Goose> geese = GenerateGeese();
-
+                int round = 1;
                 while (ducks.Count > 0 && geese.Count > 0)
                 {
-                    Console.WriteLine($"ROUND {i}!");
-                    Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
-                    Console.WriteLine($"Geese: [{string.Join(", ", geese)}]\n");
+                    Console.WriteLine($"ROUND {round}!");
+                    PrintParties(ducks, geese, felledDucks, felledGeese);
 
                     // ducks go first i guess
-                    Console.WriteLine("Ducks Turn:\n");
+                    Console.WriteLine("\nDucks Turn:");
                     if (ducks.Count > 0 && geese.Count > 0)
                     {
-                        Combatant? felled = Fight(geese, ducks);
-                        Fight(ducks, geese, skip);
+                        Combatant? felled = Fight(ducks, geese, skip);
                         Console.WriteLine();
                         if (felled != null) felledGeese.Add(felled);
                     }
 
-                    Console.WriteLine("Geese Turn:\n");
+                    Console.WriteLine("\nGeese Turn:");
                     if (ducks.Count > 0 && geese.Count > 0)
                     {
                         // geese go second
@@ -161,23 +160,45 @@ namespace DucksVSGeese
                         Console.WriteLine();
                         if (felled != null) felledDucks.Add(felled);
                     }
+                    round++;
                 }
-                Console.WriteLine("\nGame Over.");
-                Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
-                Console.WriteLine($"Felled Ducks: [{string.Join(", ", felledDucks)}]");
-                Console.WriteLine($"Geese: [{string.Join(", ", geese)}]");
-                Console.WriteLine($"Felled Geese: [{string.Join(", ", felledGeese)}]");
+                Console.WriteLine("Battle Over!");
+                PrintParties(ducks, geese, felledDucks, felledGeese);
+                // reset the felled geese list
+                felledGeese = new List<Combatant>();
+
 
                 if (ducks.Count == 0) // if ducks go down it's game over
                 {
-                    Console.WriteLine("The ducks have been vanquished...");
+                    Console.WriteLine("Game Over.\nThe ducks have been vanquished...");
                     break;
                 }
                 else // if geese go down good for you
                 {
                     Console.WriteLine("The geese have been conquered!");
+                    if (i < NumBattles) Console.WriteLine("Next battle!!");
+                    // for now let's just heal up the duck party
+                    foreach (Combatant duck in ducks) duck.HealAll();
                 }
             }
+
+            // print a message if the player didn't lose
+            if (ducks.Count > 0)
+            {
+                Console.WriteLine("\nYou won! The evil geese have been defeated!");
+            }
+        }
+
+        static void PrintParties<T1, T2, T3, T4>(List<T1> ducks, List<T2> geese, List<T3>? felledDucks=null, List<T4>? felledGeese=null)
+           where T1 : Combatant
+           where T2 : Combatant
+           where T3 : Combatant
+           where T4 : Combatant
+        {
+            Console.WriteLine($"Ducks: [{string.Join(", ", ducks)}]");
+            Console.WriteLine($"Geese: [{string.Join(", ", geese)}]\n");
+            if (felledDucks != null) Console.WriteLine($"Felled Ducks: [{string.Join(", ", felledDucks)}]");
+            if (felledGeese != null) Console.WriteLine($"Felled Geese: [{string.Join(", ", felledGeese)}]");
         }
 
         static Combatant? Fight<T1, T2>(List<T1> attacking, List<T2> defending, bool skip = false) where T1 : Combatant where T2 : Combatant
@@ -191,7 +212,7 @@ namespace DucksVSGeese
                 // target should be a random member of the defending party
                 int targetIndex = RNG.Next(defending.Count);
                 Combatant target = defending[targetIndex];
-                Console.WriteLine($"{c} aims for {target}!");
+                Console.WriteLine($"\n{c} aims for {target}!");
 
                 // attack target
                 Attack attack = c.Attack();

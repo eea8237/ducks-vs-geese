@@ -111,13 +111,21 @@ namespace DucksVSGeese
 
         /** <summary>
         * Heal a certain amount of HP.
-        * <param>amount - amount of HP to heal</param>
+        * <param name="amount"=> amount of HP to heal</param>
         * </summary> */
         public void Heal(int amount)
         {
             currentHP += amount;
             // in case heal amount goes above or below allowable HP
             currentHP = currentHP < maxHP ? currentHP : maxHP;
+        }
+
+        /** <summary>
+        * Heal all of a combatant's HP
+        * </summary> */
+        public void HealAll()
+        {
+            currentHP = maxHP;
         }
 
         public static int CapHP(int hp, int? cap = null)
