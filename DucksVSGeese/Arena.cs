@@ -212,9 +212,20 @@ namespace DucksVSGeese
 
             foreach (Combatant c in attacking)
             {
-                // target should be a random member of the defending party
-                int targetIndex = RNG.Next(defending.Count);
-                Combatant target = defending[targetIndex];
+                
+                int targetIndex;
+                Combatant target;
+                if (!c.AttackAllies) // target should be a random member of the defending party
+                {
+                    targetIndex = RNG.Next(defending.Count);
+                    target = defending[targetIndex];
+                }
+                else // or attacking party if the attacker is currently aiming for its allies
+                {
+                    targetIndex = RNG.Next(attacking.Count);
+                    target = attacking[targetIndex];
+                }
+                
                 Console.WriteLine($"\n{c} aims for {target}!");
 
                 // attack target
@@ -223,6 +234,7 @@ namespace DucksVSGeese
                 Console.WriteLine($"Attack: {attack}");
                 Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target.GetTitle()} HP: {target.GetHPString()}");
                 // check if this attack is a curse
+                // if it is, curse the attacker
                 
                 // if attack knocked the target out, remove the target from the defending party
                 if (!target.IsConscious())
