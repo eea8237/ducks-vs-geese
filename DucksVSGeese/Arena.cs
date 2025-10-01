@@ -8,19 +8,19 @@ namespace DucksVSGeese
 {
     public abstract class Arena
     {
-        private static readonly HashSet<string> FighterAliases = ["duckfighter", "duckfighter1", "duckfightera", "fighter", "fighter1", "fightera", "fi", "fi1", "fia", "0"];
-        private static readonly HashSet<string> MageAliases = ["duckmage", "duckmage1", "duckmagea", "mage", "mage1", "magea", "m", "m1", "ma", "1"];
-        private static readonly HashSet<string> ThiefAliases = ["duckthief", "duckthief1", "duckthiefa", "thief", "thief1", "thiefa", "t", "t1", "ta", "2"];
-        private static readonly HashSet<string> ClericAliases = ["duckcleric", "duckcleric1", "duckclerica", "cleric", "cleric1", "clerica", "cl", "cl1", "cla", "3"];
-        private static readonly HashSet<string> AccursedAliases = ["duckcursed", "duckcursed1", "duckcurseda", "cursed", "cursed1", "curseda", "cu", "cu1", "cua", "a", "ac", "accursedduck", "accursed", "4"];
-        private static readonly HashSet<string> EtherealAliases = ["duckethereal", "duckelemental", "duckelemental1", "duckelementala", "ethereal", "elemental", "elemental1", "elementala", "etherealduck", "elementalduck", "elementalduck1", "elementalducka", "et", "e", "e1", "ea", "5"];
+        private static readonly HashSet<string> FighterAliases = ["duckfighter", "fighter", "fi", "0"];
+        private static readonly HashSet<string> MageAliases = ["duckmage", "mage", "m", "ma", "1"];
+        private static readonly HashSet<string> ThiefAliases = ["duckthief", "thief", "t", "th", "2"];
+        private static readonly HashSet<string> ClericAliases = ["duckcleric", "cleric", "c", "cl", "3"];
+        private static readonly HashSet<string> AccursedAliases = ["duckaccursed", "accursedduck", "cursed", "cu", "a", "ac", "accursed", "4"];
+        private static readonly HashSet<string> EtherealAliases = ["duckethereal", "etherealduck", "ethereal", "et", "e", "5"];
 
-        private static readonly HashSet<string> SentryAliases = ["ducksentry", "duckfighter2", "duckfighterb", "sentry", "fighter2", "fighterb", "s", "fi2", "fib", "6"];
-        private static readonly HashSet<string> WardAliases = ["duckward", "duckmage2", "duckmageb", "ward", "mage2", "mageb", "w", "m2", "mb", "7"];
-        private static readonly HashSet<string> RogueAliases = ["duckrogue", "duckthief2", "duckthiefb", "thief2", "thiefb", "r", "t2", "tb", "8"];
-        private static readonly HashSet<string> PhysicianAliases = ["duckphysician", "duckcleric2", "duckclericb", "cleric2", "clericb", "cl2", "clb", "ph", "9"];
-        private static readonly HashSet<string> ForbiddenAliases = ["duckforbidden", "duckcursed2", "duckcursedb", "cursed2", "cursedb", "cu2", "cub", "fo", "forbiddenduck", "forbidden", "10"];
-        private static readonly HashSet<string> ProteanAliases = ["duckprotean", "duckelemental2", "duckelementalb", "protean", "elemental2", "elementalb", "proteanduck", "elementalduck2", "elementalduckb", "pr", "e2", "eb", "11"];
+        private static readonly HashSet<string> SentryAliases = ["ducksentry", "sentry", "s", "se", "6"];
+        private static readonly HashSet<string> WardAliases = ["duckward", "ward", "w", "wa", "7"];
+        private static readonly HashSet<string> RogueAliases = ["duckrogue", "rogue", "r", "ro", "8"];
+        private static readonly HashSet<string> PhysicianAliases = ["duckphysician", "physician", "ph", "9"];
+        private static readonly HashSet<string> ForbiddenAliases = ["duckforbidden", "forbiddenduck", "forbidden", "fo", "10"];
+        private static readonly HashSet<string> ProteanAliases = ["duckprotean", "proteanduck", "protean", "pr", "11"];
 
         
 
@@ -45,21 +45,21 @@ namespace DucksVSGeese
                 Combatant mageDuck = new DuckMage();
                 Combatant thiefDuck = new DuckThief();
                 Combatant clericDuck = new DuckCleric();
-                Combatant cursedDuck = new DuckCursed();
-                Combatant elementalDuck = new DuckElemental();
+                Combatant cursedDuck = new AccursedDuck();
+                Combatant elementalDuck = new EtherealDuck();
                 
-                Combatant fighterBDuck = new DuckFighterB();
-                Combatant mageBDuck = new DuckMageB();
-                Combatant thiefBDuck = new DuckThiefB();
-                Combatant clericBDuck = new DuckClericB();
-                Combatant cursedBDuck = new DuckCursedB();
-                Combatant elementalBDuck = new DuckElementalB();
+                Combatant fighterBDuck = new DuckSentry();
+                Combatant mageBDuck = new DuckWard();
+                Combatant thiefBDuck = new DuckRogue();
+                Combatant clericBDuck = new DuckPhysician();
+                Combatant cursedBDuck = new ForbiddenDuck();
+                Combatant elementalBDuck = new ProteanDuck();
 
-                Combatant fighterGoose = new GooseFighter("Goose");
-                Combatant mageGoose = new GooseMage("Oose");
-                Combatant thiefGoose = new GooseThief("Gose");
-                Combatant clericGoose = new GooseCleric("Geese");
-                Combatant cursedGoose = new GooseCursed("Esoog");
+                Combatant fighterGoose = new GooseWarrior("Goose");
+                Combatant mageGoose = new GooseWitch("Oose");
+                Combatant thiefGoose = new GooseVandal("Gose");
+                Combatant clericGoose = new GoosePriest("Geese");
+                Combatant cursedGoose = new UnholyGoose("Esoog");
 
                 // fighter.TakeDamage(mage.Attack());
                 // mage.TakeDamage(fighter.Attack());
@@ -131,16 +131,16 @@ namespace DucksVSGeese
                             else if (MageAliases.Contains(s)) ducks.Add(new DuckMage());
                             else if (ThiefAliases.Contains(s)) ducks.Add(new DuckThief());
                             else if (ClericAliases.Contains(s)) ducks.Add(new DuckCleric());
-                            else if (AccursedAliases.Contains(s)) ducks.Add(new DuckCursed());
-                            else if (EtherealAliases.Contains(s)) ducks.Add(new DuckElemental());
+                            else if (AccursedAliases.Contains(s)) ducks.Add(new AccursedDuck());
+                            else if (EtherealAliases.Contains(s)) ducks.Add(new EtherealDuck());
 
                             // B ducks
-                            else if (SentryAliases.Contains(s)) ducks.Add(new DuckFighterB());
-                            else if (WardAliases.Contains(s)) ducks.Add(new DuckMageB());
-                            else if (RogueAliases.Contains(s)) ducks.Add(new DuckThiefB());
-                            else if (PhysicianAliases.Contains(s)) ducks.Add(new DuckClericB());
-                            else if (ForbiddenAliases.Contains(s)) ducks.Add(new DuckCursedB());
-                            else if (ProteanAliases.Contains(s)) ducks.Add(new DuckElementalB());
+                            else if (SentryAliases.Contains(s)) ducks.Add(new DuckSentry());
+                            else if (WardAliases.Contains(s)) ducks.Add(new DuckWard());
+                            else if (RogueAliases.Contains(s)) ducks.Add(new DuckRogue());
+                            else if (PhysicianAliases.Contains(s)) ducks.Add(new DuckPhysician());
+                            else if (ForbiddenAliases.Contains(s)) ducks.Add(new ForbiddenDuck());
+                            else if (ProteanAliases.Contains(s)) ducks.Add(new ProteanDuck());
 
                             else
                             {
@@ -313,49 +313,49 @@ namespace DucksVSGeese
                 switch (selection)
                 {
                     case 0:
-                        geese.Add(new GooseFighter());
+                        geese.Add(new GooseWarrior());
                         break;
                     case 1:
-                        geese.Add(new GooseMage());
+                        geese.Add(new GooseWitch());
                         break;
                     case 2:
-                        geese.Add(new GooseThief());
+                        geese.Add(new GooseVandal());
                         break;
                     case 3:
                         // i also feel like there will be an issue if there's a full party of clerics on both sides, so check the goose party to see if everyone else is already a cleric
                         // if (geese.Count == GoosePartySize - 1) // only do this check if we're filling out the last space
                         // {
                         //     int clerics = 0;
-                        //     foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.ClassName) clerics++;
+                        //     foreach (Goose goose in geese) if (goose.CombatClass == GoosePriest.ClassName) clerics++;
                         //     // if the party isn't entirely clerics you can add another cleric
-                        //     if (clerics < GoosePartySize - 1) geese.Add(new GooseCleric());
-                        // } else geese.Add(new GooseCleric());
-                        geese.Add(new GooseCleric()); // whatever i'll just deal with it later
+                        //     if (clerics < GoosePartySize - 1) geese.Add(new GoosePriest());
+                        // } else geese.Add(new GoosePriest());
+                        geese.Add(new GoosePriest()); // whatever i'll just deal with it later
                         // similar issue occurs if you've got a bunch of accursed ducks
                         break;
                     case 4:
-                        geese.Add(new GooseCursed());
+                        geese.Add(new UnholyGoose());
                         break;
                     case 5:
-                        geese.Add(new GooseElemental());
+                        geese.Add(new EphemeralGoose());
                         break;
                     case 6:
-                        geese.Add(new GooseFighterB());
+                        geese.Add(new GooseSentinel());
                         break;
                     case 7:
-                        geese.Add(new GooseMageB());
+                        geese.Add(new GooseGuardian());
                         break;
                     case 8:
-                        geese.Add(new GooseThiefB());
+                        geese.Add(new GooseGambler());
                         break;
                     case 9:
-                        geese.Add(new GooseClericB());
+                        geese.Add(new GooseMedic());
                         break;
                     case 10:
-                        geese.Add(new GooseCursedB());
+                        geese.Add(new ImprisonedGoose());
                         break;
                     case 11:
-                        geese.Add(new GooseElementalB());
+                        geese.Add(new UniversalGoose());
                         break;
                 }
             }
@@ -366,7 +366,7 @@ namespace DucksVSGeese
         {
             // Test();
             Battle();
-            // Console.WriteLine(GooseCleric.ClassName);
+            // Console.WriteLine(GoosePriest.ClassName);
         }
 
     }

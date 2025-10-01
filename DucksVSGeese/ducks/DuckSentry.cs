@@ -1,21 +1,20 @@
 using DucksVSGeese.Attributes;
 
-namespace DucksVSGeese.Geese
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
-    /// Class for a Goose Guardian, a more defensive Goose Witch.
+    /// Class for a Duck Sentry, a more defensive Duck Fighter.
     /// </summary>
-    public class GooseMageB : Goose
+    public class DuckSentry : Duck
     {
-        private const int MaximumHP = 95;
-        private const string CombatantClass = "Goose Guardian";
+        private const int MaximumHP = 210;
+        private const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
         private const bool AttacksAllies = false;
-        private const double Regeneration = .2;
-        public GooseMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
+        public DuckSentry(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
-            // idk maybe do some goose stuff here
+            // idk maybe do some duck stuff here
         }
-        public GooseMageB() : this(Goose.GetRandomName()) { }
+        public DuckSentry() : this(Duck.GetRandomName()) { }
 
         public static new string ClassName
         {
@@ -23,17 +22,17 @@ namespace DucksVSGeese.Geese
         }
 
         /// <summary>
-        /// Duck Wards attack 3 times for 1 base damage per hit. Their attacks deal Magical damage.
+        /// Duck Sentries attack once for 5 base damage. Their attacks deal Physical damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Early Migration", ScaleHits([1, 1, 1]), DAttribute.Magical);
+            return new Attack("Follow Aggressively", ScaleHits([5]), DAttribute.Physical);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Goose Guardians take more damage from physical and elemental attacks and less damage from every other attack.
+        /// Duck Sentries take more damage from magical and elemental attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
@@ -41,8 +40,8 @@ namespace DucksVSGeese.Geese
         {
             double modifier;
             DAttribute attribute = attack.DAttribute;
-            if (attribute == DAttribute.Magical) modifier = .1; // take little damage from magical attacks
-            else if (attribute == DAttribute.Physical) modifier = 1.2; // take a lot more damage from physical attacks
+            if (attribute == DAttribute.Physical) modifier = .1; // take little damage from physical attacks
+            else if (attribute == DAttribute.Magical) modifier = 1.2; // take a lot damage from magical attacks
             else if (attribute == DAttribute.Elemental) modifier = 1.15; // take more damage from elemental attacks
             else modifier = .5; // take less damage from every other attack
 

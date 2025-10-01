@@ -5,16 +5,16 @@ namespace DucksVSGeese.Ducks
     /// <summary>
     /// Class for a Duck Physician, an alternate holy duck.
     /// </summary>
-    public class DuckClericB : Duck
+    public class DuckPhysician : Duck
     {
         private const int MaximumHP = 100;
         private const string CombatantClass = "Duck Physician";
         private const bool AttacksAllies = true;
-        public DuckClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        public DuckPhysician(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-        public DuckClericB() : this(Duck.GetRandomName()) { }
+        public DuckPhysician() : this(Duck.GetRandomName()) { }
 
         public static new string ClassName
         {

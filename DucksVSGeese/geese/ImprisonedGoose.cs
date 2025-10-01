@@ -1,20 +1,21 @@
 using DucksVSGeese.Attributes;
 
-namespace DucksVSGeese.Ducks
+namespace DucksVSGeese.Geese
 {
     /// <summary>
-    /// Class for an Accursed Duck, a basic cursed attacker.
+    /// Class for an Imprisoned Goose, an alternate cursed goose.
     /// </summary>
-    public class DuckCursed : Duck
+    public class ImprisonedGoose : Goose
     {
-        private const int MaximumHP = 125;
-        private const string CombatantClass = "Accursed Duck";
+        private const int MaximumHP = 45;
+        private const string CombatantClass = "Imprisoned Goose";
         private const bool AttacksAllies = false;
-        public DuckCursed(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        private const double Regeneration = .01;
+        public ImprisonedGoose(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
-            // idk maybe do some duck stuff here
+            // idk maybe do some goose stuff here
         }
-        public DuckCursed() : this(Duck.GetRandomName()) { }
+        public ImprisonedGoose() : this(Goose.GetRandomName()) { }
 
         public static new string ClassName
         {
@@ -22,29 +23,18 @@ namespace DucksVSGeese.Ducks
         }
 
         /// <summary>
-        /// Accursed Ducks attack twice for 0-50 base damage per hit. Their attacks deal Cursed damage.
+        /// Imprisoned Geese attack once for 1 base point of Cursed damage.
+        /// Imprisoned Geese also curse their opponents so that their attacks strike the opposite side for a few turns.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            int[] hits = [0, 0];
-            // hits twice for between 0 and 50 points of damage
-            for (int i = 0; i < hits.Length; i++)
-            {
-                hits[i] = RNG.Next(16);
-                // hits are weighed towards 0-15 points
-                if (RNG.Next(3) == 1)
-                {
-                    // 1 in 3 chance to add 1 - 35 points of damage
-                    hits[i] += RNG.Next(1, 36);
-                }
-            }
-            return new Attack("Unholy Quack", ScaleHits(hits), DAttribute.Cursed);
+            return new Attack("Knowledge No Bird Was Meant To Know", ScaleHits([1]), DAttribute.Cursed, true);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Accursed Ducks take more damage from elemental and holy attacks and less damage from every other attack.
+        /// Imprisoned Geese take more damage from elemental and holy attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>

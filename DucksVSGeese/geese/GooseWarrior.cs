@@ -5,17 +5,17 @@ namespace DucksVSGeese.Geese
     /// <summary>
     /// Class for a Goose Warrior, a basic physical attacker.
     /// </summary>
-    public class GooseFighter : Goose
+    public class GooseWarrior : Goose
     {
         private const int MaximumHP = 64;
         private const string CombatantClass = "Goose Warrior";
         private const bool AttacksAllies = false;
         private const double Regeneration = .05;
-        public GooseFighter(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
+        public GooseWarrior(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
             // idk maybe do some duck stuff here
         }
-        public GooseFighter() : this(Goose.GetRandomName()) { }
+        public GooseWarrior() : this(Goose.GetRandomName()) { }
 
         public static new string ClassName
         {

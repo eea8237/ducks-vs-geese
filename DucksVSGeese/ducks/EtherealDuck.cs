@@ -3,18 +3,18 @@ using DucksVSGeese.Attributes;
 namespace DucksVSGeese.Ducks
 {
     /// <summary>
-    /// Class for a Protean Duck, an alternate elemental attacker.
+    /// Class for an Ethereal Duck, a basic elemental attacker.
     /// </summary>
-    public class DuckElementalB : Duck
+    public class EtherealDuck : Duck
     {
-        private const int MaximumHP = 145;
-        private const string CombatantClass = "Protean Duck";
+        private const int MaximumHP = 40;
+        private const string CombatantClass = "Ethereal Duck";
         private const bool AttacksAllies = false;
-        public DuckElementalB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        public EtherealDuck(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-        public DuckElementalB() : this(Duck.GetRandomName()) { }
+        public EtherealDuck() : this(Duck.GetRandomName()) { }
 
         public static new string ClassName
         {
@@ -22,25 +22,29 @@ namespace DucksVSGeese.Ducks
         }
 
         /// <summary>
-        /// Protean Ducks attack 3 times for 10 base damage per hit. Their attacks are of a random element.
+        /// Ethereal Ducks attack once for 25, 50, or 100 base damage. Their attacks deal Elemental damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            DAttribute[] attributes = Enum.GetValues<DAttribute>();
-            DAttribute attribute = attributes[RNG.Next(attributes.Length)];
-            return new Attack($"Whirlwind of {attribute} Plumes", ScaleHits([10, 10, 10]), attribute);
+            int[] hits = [50];
+            // 20% chance to be halved, 20% chance to be doubled
+            int chance = RNG.Next(9);
+            if (chance < 2) hits[0] /= 2;
+            else if (chance > 7) hits[0] *= 2;
+
+            return new Attack("Fleeting Flaps", ScaleHits(hits), DAttribute.Elemental);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Protean Ducks take less damage from every attack.
+        /// Ethereal Ducks take more damage from every attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
-            double modifier = .75;
+            double modifier = 1.25;
 
             return GetHit(attack.Hits, modifier);
         }

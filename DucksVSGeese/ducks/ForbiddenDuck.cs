@@ -1,21 +1,20 @@
 using DucksVSGeese.Attributes;
 
-namespace DucksVSGeese.Geese
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
-    /// Class for an Imprisoned Goose, an alternate cursed goose.
+    /// Class for an Forbidden Duck, an alternate cursed duck.
     /// </summary>
-    public class GooseCursedB : Goose
+    public class ForbiddenDuck : Duck
     {
-        private const int MaximumHP = 45;
-        private const string CombatantClass = "Imprisoned Goose";
+        private const int MaximumHP = 125;
+        private const string CombatantClass = "Forbidden Duck";
         private const bool AttacksAllies = false;
-        private const double Regeneration = .01;
-        public GooseCursedB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
+        public ForbiddenDuck(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
-            // idk maybe do some goose stuff here
+            // idk maybe do some duck stuff here
         }
-        public GooseCursedB() : this(Goose.GetRandomName()) { }
+        public ForbiddenDuck() : this(Duck.GetRandomName()) { }
 
         public static new string ClassName
         {
@@ -23,18 +22,18 @@ namespace DucksVSGeese.Geese
         }
 
         /// <summary>
-        /// Imprisoned Geese attack once for 1 base point of Cursed damage.
-        /// Imprisoned Geese also curse their opponents so that their attacks strike the opposite side for a few turns.
+        /// Forbidden Ducks attack once for 1 base point of Cursed damage.
+        /// Forbidden Ducks also curse their opponents so that their attacks strike the opposite side for a few turns.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Knowledge No Bird Was Meant To Know", ScaleHits([1]), DAttribute.Cursed, true);
+            return new Attack("Eldritch Quacking", ScaleHits([1]), DAttribute.Cursed, true);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Imprisoned Geese take more damage from elemental and holy attacks and less damage from every other attack.
+        /// Forbidden Ducks take more damage from elemental and holy attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>

@@ -23,7 +23,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckFighter.ClassName, DuckFighterB.ClassName, GooseFighter.ClassName, GooseFighterB.ClassName];
+            private static HashSet<string> _members = [DuckFighter.ClassName, DuckSentry.ClassName, GooseWarrior.ClassName, GooseSentinel.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// </summary>
@@ -62,7 +62,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckMage.ClassName, DuckMageB.ClassName, GooseMage.ClassName, GooseMageB.ClassName];
+            private static HashSet<string> _members = [DuckMage.ClassName, DuckWard.ClassName, GooseWitch.ClassName, GooseGuardian.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// </summary>
@@ -101,7 +101,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckCleric.ClassName, DuckClericB.ClassName, GooseCleric.ClassName, GooseClericB.ClassName];
+            private static HashSet<string> _members = [DuckCleric.ClassName, DuckPhysician.ClassName, GoosePriest.ClassName, GooseMedic.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// </summary>
@@ -140,7 +140,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckCursed.ClassName, DuckCursedB.ClassName, GooseCursed.ClassName, GooseCursedB.ClassName];
+            private static HashSet<string> _members = [AccursedDuck.ClassName, ForbiddenDuck.ClassName, UnholyGoose.ClassName, ImprisonedGoose.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// </summary>
@@ -179,7 +179,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckThief.ClassName, DuckThiefB.ClassName, GooseThief.ClassName, GooseThiefB.ClassName];
+            private static HashSet<string> _members = [DuckThief.ClassName, DuckRogue.ClassName, GooseVandal.ClassName, GooseGambler.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// </summary>
@@ -217,7 +217,7 @@ namespace DucksVSGeese.Attributes
             /// <summary>
             /// Ducks and geese generally associated with this attribute
             /// </summary>
-            private static HashSet<string> _members = [DuckElemental.ClassName, DuckElementalB.ClassName, GooseElemental.ClassName, GooseElementalB.ClassName];
+            private static HashSet<string> _members = [EtherealDuck.ClassName, ProteanDuck.ClassName, EphemeralGoose.ClassName, UniversalGoose.ClassName];
             /// <summary>
             /// Attributes members of this type are generally vulnerable to.
             /// This is empty because the 2 elemental ducks/geese are opposites in this regard (resist everything vs weak to everything).
