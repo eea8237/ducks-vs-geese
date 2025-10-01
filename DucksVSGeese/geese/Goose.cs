@@ -43,7 +43,7 @@ namespace DucksVSGeese
             HealAll();
         }
 
-        public void SetLevel(int level)
+        public override void SetLevel(int level)
         {
             Level = level;
             // update max hp and stuff

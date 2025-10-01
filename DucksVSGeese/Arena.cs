@@ -167,12 +167,12 @@ namespace DucksVSGeese
                 Console.WriteLine($"\n\nBattle {i}\n");
                 List<Goose> geese = GenerateGeese();
                 foreach (Goose goose in geese) goose.SetLevel(i);
-                if (i > 1) foreach (Combatant duck in ducks) duck.LevelUp();
+                foreach (Combatant duck in ducks) duck.SetLevel(i);
 
                 int round = 1;
                 while (ducks.Count > 0 && geese.Count > 0)
                 {
-                    Console.WriteLine($"ROUND {round}!");
+                    Console.WriteLine($"\nROUND {round}!");
                     PrintParties(ducks, geese, felledDucks, felledGeese);
 
                     // ducks go first i guess
@@ -182,6 +182,7 @@ namespace DucksVSGeese
                         Combatant? felled = Fight(ducks, geese, skip);
                         Console.WriteLine();
                         if (felled != null) felledGeese.Add(felled);
+                        foreach (Duck duck in ducks) duck.EndTurn();
                     }
 
                     Console.WriteLine("Geese Turn:");
@@ -191,6 +192,7 @@ namespace DucksVSGeese
                         Combatant? felled = Fight(geese, ducks, skip);
                         Console.WriteLine();
                         if (felled != null) felledDucks.Add(felled);
+                        foreach (Goose goose in geese) goose.EndTurn();
                     }
                     round++;
                 }
@@ -244,6 +246,8 @@ namespace DucksVSGeese
                 
                 int targetIndex;
                 Combatant target;
+                // what if i made these guys a little smarter
+                // like they attack / heal based on type effectiveness and stuff if they can
                 if (!c.AttackAllies) // target should be a random member of the defending party
                 {
                     targetIndex = RNG.Next(defending.Count);
@@ -263,16 +267,16 @@ namespace DucksVSGeese
                 Console.WriteLine($"Attack: {attack}");
                 if (damage >= 0) Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target}");
                 else Console.WriteLine($"{target.GetTitle()} is healed by {c.GetTitle()} for {damage*-1} health!\n{target}");
-                // check if this attack is a curse
-                // if it is, curse the attacker
-
+                // if this attack is a curse and the target hasn't been cursed, curse the target
+                if (attack.IsCurse && target.CursedTimer == 0) target.Curse();
                 // if attack knocked the target out, remove the target from the defending party
                 if (!target.IsConscious())
                 {
                     Console.WriteLine($"{target.GetTitle()} was felled by {c.GetTitle()}...");
                     // could keep track of the felled combatants
                     Combatant felled = target;
-                    defending.RemoveAt(targetIndex);
+                    if (c.AttackAllies) attacking.RemoveAt(targetIndex);
+                    else defending.RemoveAt(targetIndex);
                     return felled;
 
                 }

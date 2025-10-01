@@ -163,7 +163,12 @@ namespace DucksVSGeese
                 if (_cursedTimer == 0)
                 {
                     _attackAllies = !_attackAllies; // go back to normal
-                    Console.WriteLine($"{_name} is no longer cursed!");
+                    Console.WriteLine($"{GetTitle()} is no longer cursed!");
+                }
+                else
+                {
+                    string turn = _cursedTimer == 1 ? "turn" : "turns";
+                    Console.WriteLine($"{GetTitle()} will be cursed for {_cursedTimer} more {turn}...");
                 }
             }
         }
@@ -184,6 +189,7 @@ namespace DucksVSGeese
         public abstract void EndTurn();
 
         public abstract void LevelUp();
-        
+
+        public abstract void SetLevel(int level);
     }
 }

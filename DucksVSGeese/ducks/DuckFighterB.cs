@@ -5,7 +5,7 @@ namespace DucksVSGeese
     /// </summary>
     public class DuckFighterB : Duck
     {
-        private const int MaximumHP = 160;
+        private const int MaximumHP = 210;
         public const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
         private const bool AttacksAllies = false;
         public DuckFighterB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)

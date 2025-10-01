@@ -2,7 +2,7 @@ namespace DucksVSGeese
 {
     public abstract class Duck : Combatant
     {
-        private readonly static string[] DuckNames = ["Duck", "Uck", "Muck", "Puck", "Plumage", "Feathers", "Quack", "Bread", "Kcud", "Duc", "Du", "*nibble*", "QUACK", "Duckley", "Duckbert", "Duckline", "Duckling", "Duckduck", "Ducduc", "Ducklin", "Truck", "Uckd", "Uck", "Cud", "Kud", "Duk", "Plume", "Crest", "Mallard"];
+        private readonly static string[] DuckNames = ["Duck", "Uck", "Muck", "Puck", "Plumage", "Feathers", "Quack", "Bread", "Kcud", "Duc", "Du", "*nibble*", "QUACK", "Duckley", "Duckbert", "Duckline", "Duckling", "Duckduck", "Ducduc", "Ducklin", "Truck", "Uckd", "Uck", "Cud", "Kud", "Duk", "Plume", "Crest", "Mallard", "Goosekiller"];
         public static readonly Random RNG = new Random();
         // should ducks have experience or something? so they can level up?
         // and maybe geese give out experience?
@@ -29,6 +29,14 @@ namespace DucksVSGeese
             HealAll();
         }
 
-
+        public override void SetLevel(int level)
+        {
+            int diff = level - Level;
+            Level = level;
+            // update max hp and stuff
+            // this will probably only work at level 1. ...
+            MaxHP += diff * Convert.ToInt32(MaxHP * .5);
+            HealAll();
+        }
     }
 }

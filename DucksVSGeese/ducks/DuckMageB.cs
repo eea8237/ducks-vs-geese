@@ -5,7 +5,7 @@ namespace DucksVSGeese
     /// </summary>
     public class DuckMageB : Duck
     {
-        private const int MaximumHP = 160;
+        private const int MaximumHP = 210;
         public const string CombatantClass = "Duck Ward"; // goose version can be guardian
         private const bool AttacksAllies = false;
         public DuckMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
