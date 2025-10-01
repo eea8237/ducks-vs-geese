@@ -5,7 +5,7 @@ namespace DucksVSGeese
     /// </summary>
     public class GooseCursed : Goose
     {
-        private const int MaximumHP = 78;
+        private const int MaximumHP = 58;
         private const string CombatantClass = "Unholy Goose";
         private const bool AttacksAllies = false;
         private const double Regeneration = .02;
