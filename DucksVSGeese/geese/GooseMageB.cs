@@ -1,31 +1,32 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Ward, a more defensive Duck Mage.
+    /// Class for a Goose Guardian, a more defensive Goose Witch.
     /// </summary>
-    public class DuckMageB : Duck
+    public class GooseMageB : Goose
     {
-        private const int MaximumHP = 210;
-        public const string CombatantClass = "Duck Ward";
+        private const int MaximumHP = 95;
+        public const string CombatantClass = "Goose Guardian";
         private const bool AttacksAllies = false;
-        public DuckMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        private const double Regeneration = .2;
+        public GooseMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
-            // idk maybe do some duck stuff here
+            // idk maybe do some goose stuff here
         }
-        public DuckMageB() : this(Duck.GetRandomName()) { }
+        public GooseMageB() : this(Goose.GetRandomName()) { }
 
         /// <summary>
-        /// Duck Wards attack 3 times for 1, 2, and 3 base damage. Their attacks deal Magical damage.
+        /// Duck Wards attack 3 times for 1 base damage per hit. Their attacks deal Magical damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Quick Pecks", ScaleHits([1, 2, 3]), Attribute.Magical);
+            return new Attack("Early Migration", ScaleHits([1, 1, 1]), Attribute.Magical);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Duck Wards take more damage from physical and elemental attacks and less damage from every other attack.
+        /// Goose Guardians take more damage from physical and elemental attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
@@ -34,7 +35,7 @@ namespace DucksVSGeese
             double modifier;
             Attribute attribute = attack.Attribute;
             if (attribute == Attribute.Magical) modifier = .1; // take little damage from magical attacks
-            else if (attribute == Attribute.Physical) modifier = 1.2; // take more damage from physical attacks
+            else if (attribute == Attribute.Physical) modifier = 1.2; // take a lot more damage from physical attacks
             else if (attribute == Attribute.Elemental) modifier = 1.15; // take more damage from elemental attacks
             else modifier = .5; // take less damage from every other attack
 

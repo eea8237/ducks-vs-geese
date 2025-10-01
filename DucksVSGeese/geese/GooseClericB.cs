@@ -1,32 +1,33 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Physician, an alternate holy duck.
+    /// Class for a Goose Medic, an alternate holy goose.
     /// </summary>
-    public class DuckClericB : Duck
+    public class GooseClericB : Goose
     {
-        private const int MaximumHP = 100;
-        public const string CombatantClass = "Duck Physician";
+        private const int MaximumHP = 40;
+        public const string CombatantClass = "Goose Medic";
         private const bool AttacksAllies = true;
-        public DuckClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        private const double Regeneration = .02;
+        public GooseClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
-            // idk maybe do some duck stuff here
+            // idk maybe do some goose stuff here
         }
 
-        public DuckClericB() : this(Duck.GetRandomName()) {}
+        public GooseClericB() : this(Goose.GetRandomName()) {}
 
         /// <summary>
-        /// Duck Physicians heal allies 3 times for 5, 10, and 15 base points. Their 'attacks' deal Holy damage.
+        /// Goose Medics heal allies twice for -5 base points per hit. Their 'attacks' deal Holy damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Tender Duck and Care", ScaleHits([-5, -10, -15]), Attribute.Holy);
+            return new Attack("Surgical Pecks", ScaleHits([-5, -5]), Attribute.Holy);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Duck Physicians take less damage from cursed attacks, get healed by holy attacks, and take more damage from every other attack.
+        /// Goose Medics take less damage from cursed attacks, get healed by holy attacks, and take more damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>

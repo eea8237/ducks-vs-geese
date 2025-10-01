@@ -1,31 +1,32 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Sentry, a more defensive Duck Fighter.
+    /// Class for a Goose Sentinel, a more defensive Goose Warrior.
     /// </summary>
-    public class DuckFighterB : Duck
+    public class GooseFighterB : Goose
     {
-        private const int MaximumHP = 210;
-        public const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
+        private const int MaximumHP = 95;
+        public const string CombatantClass = "Goose Sentinel";
         private const bool AttacksAllies = false;
-        public DuckFighterB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
+        private const double Regeneration = .2;
+        public GooseFighterB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
-            // idk maybe do some duck stuff here
+            // idk maybe do some goose stuff here
         }
-        public DuckFighterB() : this(Duck.GetRandomName()) { }
+        public GooseFighterB() : this(Goose.GetRandomName()) { }
 
         /// <summary>
-        /// Duck Sentries attack once for 5 base damage. Their attacks deal Physical damage.
+        /// Goose Sentinels attack once for 1 base damage. Their attacks deal Physical damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Follow Aggressively", ScaleHits([5]), Attribute.Physical);
+            return new Attack("Retreat to the Pond", ScaleHits([1]), Attribute.Physical);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Duck Sentries take more damage from magical and elemental attacks and less damage from every other attack.
+        /// Goose Sentinels take more damage from magical and elemental attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
@@ -34,7 +35,7 @@ namespace DucksVSGeese
             double modifier;
             Attribute attribute = attack.Attribute;
             if (attribute == Attribute.Physical) modifier = .1; // take little damage from physical attacks
-            else if (attribute == Attribute.Magical) modifier = 1.2; // take a lot damage from magical attacks
+            else if (attribute == Attribute.Magical) modifier = 1.2; // take more damage from magical attacks
             else if (attribute == Attribute.Elemental) modifier = 1.15; // take more damage from elemental attacks
             else modifier = .5; // take less damage from every other attack
 
