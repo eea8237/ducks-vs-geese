@@ -1,41 +1,40 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Mage, a basic magical attacker.
+    /// Class for an Elemental Duck, an alternate elemental attacker.
     /// </summary>
-    public class DuckMage : Duck
+    public class DuckElementalB : Duck
     {
         private const int MaxHP = 150;
-        public const string CombatantClass = "Duck Mage";
+        public const string CombatantClass = "Elemental Duck";
         private const bool AttacksAllies = false;
-        public DuckMage(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        public DuckElementalB(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-        public DuckMage() : this(Duck.GetRandomName()) { }
+        public DuckElementalB() : this(Duck.GetRandomName()) { }
 
         /// <summary>
-        /// Duck Mages attack 4 times for 9 base damage per hit. Their attacks deal Magical damage.
+        /// Elemental Ducks attack 3 times for 10 base damage per hit. Their attacks are of a random element.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Feather Bombardment", ScaleHits([9, 9, 9, 9]), Attribute.Magical);
+            Attribute[] attributes = Enum.GetValues<Attribute>();
+            Attribute attribute = attributes[RNG.Next(attributes.Length)];
+            return new Attack($"Whirlwind of {attribute} Plumes", ScaleHits([10, 10, 10]), attribute);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Duck Mages take more damage from physical and elemental attacks and less damage from magical attacks.
+        /// Elemental Ducks take less damage from every attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
         public override int TakeDamage(Attack attack)
         {
-            double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Magical) modifier = .75; // take less damage from magical attacks
-            else if (attribute == Attribute.Physical || attribute == Attribute.Elemental) modifier = 1.25; // take extra damage from physical and elemental attacks
-
+            double modifier = .75;
+            
             int totalDamage = 0;
             foreach (int hit in attack.Hits)
             {

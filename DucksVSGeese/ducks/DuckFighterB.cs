@@ -1,32 +1,31 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Cleric, a basic holy attacker.
+    /// Class for a Duck Sentry, a more defensive Duck Fighter.
     /// </summary>
-    public class DuckCleric : Duck
+    public class DuckFighterB : Duck
     {
-        private const int MaxHP = 125;
-        public const string CombatantClass = "Duck Cleric";
+        private const int MaxHP = 160;
+        public const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
         private const bool AttacksAllies = false;
-        public DuckCleric(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        public DuckFighterB(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-
-        public DuckCleric() : this(Duck.GetRandomName()) {}
+        public DuckFighterB() : this(Duck.GetRandomName()) { }
 
         /// <summary>
-        /// Duck Clerics attack 3 times for 5, 10, and 15 base damage. Their attacks deal Holy damage.
+        /// Duck Sentries attack once for 5 base damage. Their attacks deal Physical damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Duck, Duck, Goose", ScaleHits([5, 10, 15]), Attribute.Holy);
+            return new Attack("Follow Aggressively", ScaleHits([5]), Attribute.Physical);
         }
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Duck Clerics take less damage from cursed attacks, get healed by holy attacks, and take more damage from every other attack.
+        /// Duck Sentries take more damage from magical and elemental attacks and less damage from every other attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
@@ -34,10 +33,10 @@ namespace DucksVSGeese
         {
             double modifier;
             Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Holy) modifier = -.5; // get healed from holy attacks
-            else if (attribute == Attribute.Cursed) modifier = .5; // greatly resist cursed attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
-            else modifier = 1.15; // take extra damage from every other attack
+            if (attribute == Attribute.Physical) modifier = .1; // take little damage from physical attacks
+            else if (attribute == Attribute.Magical) modifier = 1.5; // take a lot more damage from magical attacks
+            else if (attribute == Attribute.Elemental) modifier = 1.25; // take more damage from elemental attacks
+            else modifier = .5; // take less damage from every other attack
 
             int totalDamage = 0;
             foreach (int hit in attack.Hits)

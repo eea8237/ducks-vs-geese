@@ -1,27 +1,27 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for a Duck Cleric, a basic holy attacker.
+    /// Class for a Duck Physician, an alternate holy duck.
     /// </summary>
-    public class DuckCleric : Duck
+    public class DuckClericB : Duck
     {
-        private const int MaxHP = 125;
-        public const string CombatantClass = "Duck Cleric";
-        private const bool AttacksAllies = false;
-        public DuckCleric(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        private const int MaxHP = 100;
+        public const string CombatantClass = "Duck Physician";
+        private const bool AttacksAllies = true;
+        public DuckClericB(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
 
-        public DuckCleric() : this(Duck.GetRandomName()) {}
+        public DuckClericB() : this(Duck.GetRandomName()) {}
 
         /// <summary>
-        /// Duck Clerics attack 3 times for 5, 10, and 15 base damage. Their attacks deal Holy damage.
+        /// Duck Physicians heal allies 3 times for 5, 10, and 15 base points. Their 'attacks' deal Holy damage.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Duck, Duck, Goose", ScaleHits([5, 10, 15]), Attribute.Holy);
+            return new Attack("Tender Duck and Care", ScaleHits([-5, -10, -15]), Attribute.Holy);
         }
 
         /// <summary>
@@ -34,10 +34,10 @@ namespace DucksVSGeese
         {
             double modifier;
             Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Holy) modifier = -.5; // get healed from holy attacks
-            else if (attribute == Attribute.Cursed) modifier = .5; // greatly resist cursed attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
-            else modifier = 1.15; // take extra damage from every other attack
+            if (attribute == Attribute.Holy) modifier = -.25; // get healed from holy attacks
+            else if (attribute == Attribute.Cursed) modifier = .75; // resist cursed attacks
+            else if (attribute == Attribute.Elemental) modifier = 1.5; // everyone takes more damage from elemental attacks (this duck takes even more damage)
+            else modifier = 1.25; // take extra damage from every other attack
 
             int totalDamage = 0;
             foreach (int hit in attack.Hits)
