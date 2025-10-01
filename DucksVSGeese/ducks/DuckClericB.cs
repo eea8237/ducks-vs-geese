@@ -34,7 +34,8 @@ namespace DucksVSGeese
         {
             double modifier;
             Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Holy) modifier = -.25; // get healed from holy attacks
+            if (attribute == Attribute.Holy && attack.Hits[0] > 0) modifier = -.25;
+            else if (attribute == Attribute.Cursed || attribute == Attribute.Holy) modifier = .25; // greatly resist cursed attacks and get healed less by helpful holy attacks
             else if (attribute == Attribute.Cursed) modifier = .75; // resist cursed attacks
             else if (attribute == Attribute.Elemental) modifier = 1.5; // everyone takes more damage from elemental attacks (this duck takes even more damage)
             else modifier = 1.25; // take extra damage from every other attack
