@@ -28,11 +28,19 @@ namespace DucksVSGeese
 
                 Console.WriteLine("\n" + test);
 
-                Combatant fighterDuck = new DuckFighter("Duc");
-                Combatant mageDuck = new DuckMage("Uck");
-                Combatant thiefDuck = new DuckThief("Dck");
-                Combatant clericDuck = new DuckCleric("Uckd");
-                Combatant cursedDuck = new DuckCursed("Kcud");
+                Combatant fighterDuck = new DuckFighter();
+                Combatant mageDuck = new DuckMage();
+                Combatant thiefDuck = new DuckThief();
+                Combatant clericDuck = new DuckCleric();
+                Combatant cursedDuck = new DuckCursed();
+                Combatant elementalDuck = new DuckElemental();
+                
+                Combatant fighterBDuck = new DuckFighterB();
+                Combatant mageBDuck = new DuckMageB();
+                Combatant thiefBDuck = new DuckThiefB();
+                Combatant clericBDuck = new DuckClericB();
+                Combatant cursedBDuck = new DuckCursedB();
+                Combatant elementalBDuck = new DuckElementalB();
 
                 Combatant fighterGoose = new GooseFighter("Goose");
                 Combatant mageGoose = new GooseMage("Oose");
@@ -46,20 +54,21 @@ namespace DucksVSGeese
                 // cleric.TakeDamage(cursed.Attack());
                 // cursed.TakeDamage(thief.Attack());
 
-                Combatant[] Combatants = [fighterDuck, mageDuck, thiefDuck, clericDuck, cursedDuck, fighterGoose, mageGoose, thiefGoose, clericGoose, cursedGoose];
+                Combatant[] Combatants = [fighterDuck, fighterBDuck, mageDuck, mageBDuck, thiefDuck, thiefBDuck, clericDuck, clericBDuck, cursedDuck, cursedBDuck, elementalDuck, elementalBDuck, fighterGoose, mageGoose, thiefGoose, clericGoose, cursedGoose];
                 // test each Combatant with each other Combatant
-                foreach (Combatant Combatant in Combatants)
+                foreach (Combatant combatant in Combatants)
                 {
-                    Combatant current = Combatant;
+                    Combatant current = combatant;
                     foreach (Combatant c in Combatants)
                     {
-                        Console.WriteLine(Combatant);
+                        Console.WriteLine(combatant);
                         Attack attack = c.Attack();
-                        int damage = Combatant.TakeDamage(attack);
+                        int damage = combatant.TakeDamage(attack);
                         Console.WriteLine($"Attack: {attack}");
-                        Console.WriteLine($"{Combatant} is attacked by {c.GetTitle()} for {damage} damage!");
+                        if (damage >= 0) Console.WriteLine($"{combatant.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{combatant}");
+                        else Console.WriteLine($"{combatant.GetTitle()} is healed by {c.GetTitle()} for {damage*-1} health!\n{combatant}");
                         Console.WriteLine();
-                        Combatant.Heal(10000);
+                        combatant.Heal(10000);
                     }
                     Console.WriteLine();
                 }
@@ -232,10 +241,11 @@ namespace DucksVSGeese
                 Attack attack = c.Attack();
                 int damage = target.TakeDamage(attack);
                 Console.WriteLine($"Attack: {attack}");
-                Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target.GetTitle()} HP: {target.GetHPString()}");
+                if (damage >= 0) Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target}");
+                else Console.WriteLine($"{target.GetTitle()} is healed by {c.GetTitle()} for {damage*-1} health!\n{target}");
                 // check if this attack is a curse
                 // if it is, curse the attacker
-                
+
                 // if attack knocked the target out, remove the target from the defending party
                 if (!target.IsConscious())
                 {
@@ -250,17 +260,6 @@ namespace DucksVSGeese
             }
             return null;
         }
-
-        /// <summary>
-        /// Helper method to determine if an entire party has been rendered unconscious.
-        /// </summary>
-        /// <param name="party">Party whose status should be checked</param>
-        /// <returns> true if whole party is unconscious, false otherwise </returns>
-        static bool PartyDown<T>(List<T> party) where T : Combatant
-        {
-            return party.Count == 0;
-        }
-
         private static List<Goose> GenerateGeese()
         {
             List<Goose> geese = new List<Goose>();
@@ -299,8 +298,8 @@ namespace DucksVSGeese
         }
         static void Main(string[] args)
         {
-            // Test();
-            Battle();
+            Test();
+            // Battle();
         }
 
     }

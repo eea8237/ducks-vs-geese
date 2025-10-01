@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.ConstrainedExecution;
+using Microsoft.VisualBasic;
 
 namespace DucksVSGeese
 {
@@ -121,7 +122,7 @@ namespace DucksVSGeese
         {
             _currentHP += amount;
             // in case heal amount goes above or below allowable HP
-            _currentHP = _currentHP < _maxHP ? _currentHP : _maxHP;
+            CapHP(_currentHP);
         }
 
         /** <summary>
@@ -132,16 +133,9 @@ namespace DucksVSGeese
             _currentHP = _maxHP;
         }
 
-        public static int CapHP(int hp, int? cap = null)
+        public void CapHP(int hp, int? cap = null)
         {
-            int newHP = hp;
-            // HP shouldn't go below 0
-            newHP = newHP < 0 ? 0 : newHP;
-
-            // HP shouldn't be above maxHP
-            if (cap != null) newHP = newHP > Convert.ToInt32(cap) ? Convert.ToInt32(cap) : newHP;
-
-            return newHP;
+            _currentHP = _currentHP < 0 ? 0 : _currentHP > _maxHP ? _maxHP : _currentHP;
         }
 
         public int[] ScaleHits(int[] hits)
@@ -181,7 +175,7 @@ namespace DucksVSGeese
                 int damage = Convert.ToInt32(hit * modifier);
                 totalDamage += damage;
                 _currentHP -= damage;
-                _currentHP = Combatant.CapHP(_currentHP, _maxHP);
+                CapHP(_currentHP, _maxHP);
             }
             return totalDamage;
         }
