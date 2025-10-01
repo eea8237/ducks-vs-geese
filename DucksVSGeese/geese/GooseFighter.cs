@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Warrior, a basic physical attacker.
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some duck stuff here
         }
         public GooseFighter() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Warriors attack once for 15 base damage. Their attacks deal Physical damage.

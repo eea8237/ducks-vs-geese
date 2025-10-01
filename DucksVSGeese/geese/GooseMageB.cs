@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Guardian, a more defensive Goose Witch.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseMageB : Goose
     {
         private const int MaximumHP = 95;
-        public const string CombatantClass = "Goose Guardian";
+        private const string CombatantClass = "Goose Guardian";
         private const bool AttacksAllies = false;
         private const double Regeneration = .2;
         public GooseMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseMageB() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Wards attack 3 times for 1 base damage per hit. Their attacks deal Magical damage.

@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for an Ephemeral Goose, a basic elemental attacker.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseElemental : Goose
     {
         private const int MaximumHP = 15;
-        public const string CombatantClass = "Ephemeral Goose";
+        private const string CombatantClass = "Ephemeral Goose";
         private const bool AttacksAllies = false;
         private const double Regeneration = 1;
         public GooseElemental(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseElemental() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Ephemeral Geese attack once for 25, 50, or 100 base damage. Their attacks deal Elemental damage.

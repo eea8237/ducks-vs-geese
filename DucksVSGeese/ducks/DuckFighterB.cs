@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Sentry, a more defensive Duck Fighter.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckFighterB : Duck
     {
         private const int MaximumHP = 210;
-        public const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
+        private const string CombatantClass = "Duck Sentry"; // goose version can be sentinel
         private const bool AttacksAllies = false;
         public DuckFighterB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckFighterB() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Sentries attack once for 5 base damage. Their attacks deal Physical damage.

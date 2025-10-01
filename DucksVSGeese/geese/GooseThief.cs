@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Vandal, a basic poison attacker.
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some duck stuff here
         }
         public GooseThief() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Vandals attack 1-3 times for 5 or 10 base damage per hit. Their attacks deal Poison damage.

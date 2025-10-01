@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
+using DucksVSGeese.geese;
+using DucksVSGeese.ducks;
 
 namespace DucksVSGeese
 {
@@ -307,7 +309,7 @@ namespace DucksVSGeese
                         if (geese.Count == GoosePartySize - 1) // only do this check if we're filling out the last space
                         {
                             int clerics = 0;
-                            foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.CombatantClass) clerics++;
+                            foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.ClassName) clerics++;
                             // if the party isn't entirely clerics you can add another cleric
                             if (clerics < GoosePartySize - 1) geese.Add(new GooseCleric());
                         } else geese.Add(new GooseCleric());
@@ -324,6 +326,7 @@ namespace DucksVSGeese
         {
             // Test();
             Battle();
+            // Console.WriteLine(GooseCleric.ClassName);
         }
 
     }

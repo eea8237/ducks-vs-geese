@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for an Imprisoned Goose, an alternate cursed goose.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseCursedB : Goose
     {
         private const int MaximumHP = 45;
-        public const string CombatantClass = "Imprisoned Goose";
+        private const string CombatantClass = "Imprisoned Goose";
         private const bool AttacksAllies = false;
         private const double Regeneration = .01;
         public GooseCursedB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseCursedB() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Imprisoned Geese attack once for 1 base point of Cursed damage.

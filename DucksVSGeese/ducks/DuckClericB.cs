@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Physician, an alternate holy duck.
@@ -6,14 +6,18 @@ namespace DucksVSGeese
     public class DuckClericB : Duck
     {
         private const int MaximumHP = 100;
-        public const string CombatantClass = "Duck Physician";
+        private const string CombatantClass = "Duck Physician";
         private const bool AttacksAllies = true;
         public DuckClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-
         public DuckClericB() : this(Duck.GetRandomName()) {}
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Physicians heal allies 3 times for 5, 10, and 15 base points. Their 'attacks' deal Holy damage.

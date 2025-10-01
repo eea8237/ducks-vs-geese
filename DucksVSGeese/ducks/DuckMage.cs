@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Mage, a basic magical attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckMage : Duck
     {
         private const int MaximumHP = 150;
-        public const string CombatantClass = "Duck Mage";
+        private const string CombatantClass = "Duck Mage";
         private const bool AttacksAllies = false;
         public DuckMage(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckMage() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Mages attack 4 times for 9 base damage per hit. Their attacks deal Magical damage.

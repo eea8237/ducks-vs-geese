@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Cleric, a basic holy attacker.
@@ -6,14 +6,18 @@ namespace DucksVSGeese
     public class DuckCleric : Duck
     {
         private const int MaximumHP = 125;
-        public const string CombatantClass = "Duck Cleric";
+        private const string CombatantClass = "Duck Cleric";
         private const bool AttacksAllies = false;
         public DuckCleric(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
-
         public DuckCleric() : this(Duck.GetRandomName()) {}
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Clerics attack 3 times for 5, 10, and 15 base damage. Their attacks deal Holy damage.

@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Ward, a more defensive Duck Mage.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckMageB : Duck
     {
         private const int MaximumHP = 210;
-        public const string CombatantClass = "Duck Ward";
+        private const string CombatantClass = "Duck Ward";
         private const bool AttacksAllies = false;
         public DuckMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckMageB() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Wards attack 3 times for 1, 2, and 3 base damage. Their attacks deal Magical damage.

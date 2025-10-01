@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Rogue, an alternate poison attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckThiefB : Duck
     {
         private const int MaximumHP = 105;
-        public const string CombatantClass = "Duck Rogue";
+        private const string CombatantClass = "Duck Rogue";
         private const bool AttacksAllies = false;
         public DuckThiefB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckThiefB() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Rogues attack 6 times for 0, 1, 5, 10, or 20 base damage per hit. Their attacks deal Poison damage.
@@ -24,7 +29,7 @@ namespace DucksVSGeese
             for (int i = 0; i < hits.Length; i++)
             {
                 int gamble = RNG.Next(100);
-                
+
                 // 5% chance for 20 damage
                 if (gamble >= 95) hits[i] = 20;
                 // 20% chance for 10 damage

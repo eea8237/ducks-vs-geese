@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for an Accursed Duck, a basic cursed attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckCursed : Duck
     {
         private const int MaximumHP = 125;
-        public const string CombatantClass = "Accursed Duck";
+        private const string CombatantClass = "Accursed Duck";
         private const bool AttacksAllies = false;
         public DuckCursed(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckCursed() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Accursed Ducks attack twice for 0-50 base damage per hit. Their attacks deal Cursed damage.

@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for an Forbidden Duck, an alternate cursed duck.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckCursedB : Duck
     {
         private const int MaximumHP = 125;
-        public const string CombatantClass = "Forbidden Duck";
+        private const string CombatantClass = "Forbidden Duck";
         private const bool AttacksAllies = false;
         public DuckCursedB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckCursedB() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Forbidden Ducks attack once for 1 base point of Cursed damage.

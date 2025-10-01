@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Sentinel, a more defensive Goose Warrior.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseFighterB : Goose
     {
         private const int MaximumHP = 95;
-        public const string CombatantClass = "Goose Sentinel";
+        private const string CombatantClass = "Goose Sentinel";
         private const bool AttacksAllies = false;
         private const double Regeneration = .2;
         public GooseFighterB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseFighterB() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Sentinels attack once for 1 base damage. Their attacks deal Physical damage.

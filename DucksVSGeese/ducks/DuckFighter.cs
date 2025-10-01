@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Fighter, a basic physical attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckFighter : Duck
     {
         private const int MaximumHP = 150;
-        public const string CombatantClass = "Duck Fighter";
+        private const string CombatantClass = "Duck Fighter";
         private const bool AttacksAllies = false;
         public DuckFighter(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckFighter() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Fighters attack once for 25 base damage. Their attacks deal Physical damage.

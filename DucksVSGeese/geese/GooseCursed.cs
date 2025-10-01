@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for an Unholy Goose, a basic cursed attacker.
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseCursed() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Unholy Geese attack twice for 0-30 base damage per hit. Their attacks deal Cursed damage.

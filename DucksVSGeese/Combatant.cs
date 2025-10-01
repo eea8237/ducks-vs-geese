@@ -7,6 +7,7 @@ namespace DucksVSGeese
     public abstract class Combatant
     {
         private readonly string _combatClass;
+        private const string CombatantClass = "Combatant";
         private readonly string _name;
         private int _maxHP;
         private int _currentHP;
@@ -39,6 +40,11 @@ namespace DucksVSGeese
             _maxHP = maxHP * _level;
             _currentHP = _maxHP;
         }
+        public static string ClassName
+        {
+            get { return CombatantClass; }
+        }
+
         /**<summary>
         Name for a class of duck or goose.
         </summary>*/

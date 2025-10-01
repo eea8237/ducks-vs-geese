@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Priest, a basic holy attacker.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseCleric : Goose
     {
         private const int MaximumHP = 58;
-        public const string CombatantClass = "Goose Priest";
+        private const string CombatantClass = "Goose Priest";
         private const bool AttacksAllies = false;
         private const double Regeneration = .02;
 
@@ -14,8 +14,12 @@ namespace DucksVSGeese
         {
             // idk maybe do some goose stuff here
         }
-
         public GooseCleric() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Priests attack twice for 5 base damage per hit. Their attacks deal Holy damage.

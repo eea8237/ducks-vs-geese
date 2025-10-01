@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for a Duck Thief, a basic poison attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckThief : Duck
     {
         private const int MaximumHP = 125;
-        public const string CombatantClass = "Duck Thief";
+        private const string CombatantClass = "Duck Thief";
         private const bool AttacksAllies = false;
         public DuckThief(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckThief() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Duck Thieves attack 1-2 times for 10 or 20 base damage per hit. Their attacks deal Poison damage.

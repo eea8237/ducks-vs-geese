@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.ducks
 {
     /// <summary>
     /// Class for an Ethereal Duck, a basic elemental attacker.
@@ -6,13 +6,18 @@ namespace DucksVSGeese
     public class DuckElemental : Duck
     {
         private const int MaximumHP = 40;
-        public const string CombatantClass = "Ethereal Duck";
+        private const string CombatantClass = "Ethereal Duck";
         private const bool AttacksAllies = false;
         public DuckElemental(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
         public DuckElemental() : this(Duck.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Ethereal Ducks attack once for 25, 50, or 100 base damage. Their attacks deal Elemental damage.

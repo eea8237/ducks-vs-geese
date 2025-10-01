@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Universal Goose, an alternate elemental attacker.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseElementalB : Goose
     {
         private const int MaximumHP = 40;
-        public const string CombatantClass = "Universal Goose";
+        private const string CombatantClass = "Universal Goose";
         private const bool AttacksAllies = false;
         private const double Regeneration = .15;
         public GooseElementalB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseElementalB() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Universal Geese attack twice times for 5 and 10 base damage. Their attacks are of a random element.

@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Medic, an alternate holy goose.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseClericB : Goose
     {
         private const int MaximumHP = 40;
-        public const string CombatantClass = "Goose Medic";
+        private const string CombatantClass = "Goose Medic";
         private const bool AttacksAllies = true;
         private const double Regeneration = .02;
         public GooseClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -15,6 +15,11 @@ namespace DucksVSGeese
         }
 
         public GooseClericB() : this(Goose.GetRandomName()) {}
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Medics heal allies twice for -5 base points per hit. Their 'attacks' deal Holy damage.

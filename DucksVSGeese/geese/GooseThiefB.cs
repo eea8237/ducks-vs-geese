@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Gambler, an alternate poison attacker.
@@ -6,7 +6,7 @@ namespace DucksVSGeese
     public class GooseThiefB : Goose
     {
         private const int MaximumHP = 55;
-        public const string CombatantClass = "Goose Gambler";
+        private const string CombatantClass = "Goose Gambler";
         private const bool AttacksAllies = false;
         private const double Regeneration = .1;
         public GooseThiefB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some goose stuff here
         }
         public GooseThiefB() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Gamblers attack 5 times for 0, 1, 5, 10, or 20 base damage per hit. Their attacks deal Poison damage.
@@ -25,7 +30,7 @@ namespace DucksVSGeese
             for (int i = 0; i < hits.Length; i++)
             {
                 int gamble = RNG.Next(100);
-                
+
                 // 5% chance for 20 damage
                 if (gamble >= 95) hits[i] = 20;
                 // 10% chance for 10 damage

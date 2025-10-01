@@ -1,4 +1,4 @@
-namespace DucksVSGeese
+namespace DucksVSGeese.geese
 {
     /// <summary>
     /// Class for a Goose Witch, a basic magical attacker.
@@ -14,6 +14,11 @@ namespace DucksVSGeese
             // idk maybe do some duck stuff here
         }
         public GooseMage() : this(Goose.GetRandomName()) { }
+
+        public static new string ClassName
+        {
+            get { return CombatantClass; }
+        }
 
         /// <summary>
         /// Goose Witches attack 4 times for 5 base damage per hit. Their attacks deal Magical damage.
