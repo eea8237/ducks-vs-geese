@@ -21,5 +21,14 @@ namespace DucksVSGeese
             DecrementCurse();
         }
 
+        public override void LevelUp()
+        {
+            Level++;
+            // update max hp and stuff
+            MaxHP += Convert.ToInt32(MaxHP * .5);
+            HealAll();
+        }
+
+
     }
 }

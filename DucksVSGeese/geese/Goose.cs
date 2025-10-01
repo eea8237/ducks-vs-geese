@@ -33,5 +33,22 @@ namespace DucksVSGeese
             Regenerate();
             DecrementCurse();
         }
+
+
+        public override void LevelUp()
+        {
+            Level++;
+            // update max hp and stuff
+            MaxHP += MaxHP;
+            HealAll();
+        }
+
+        public void SetLevel(int level)
+        {
+            Level = level;
+            // update max hp and stuff
+            MaxHP *= level;
+            HealAll();
+        }
     }
 }

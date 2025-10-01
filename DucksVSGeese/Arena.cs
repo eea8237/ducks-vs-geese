@@ -5,11 +5,21 @@ namespace DucksVSGeese
 {
     public abstract class Arena
     {
-        private static readonly HashSet<string> FighterAliases = ["duck fighter", "fighter", "f", "0"];
-        private static readonly HashSet<string> MageAliases = ["duck mage", "mage", "m", "1"];
-        private static readonly HashSet<string> ThiefAliases = ["duck thief", "thief", "t", "2"];
-        private static readonly HashSet<string> ClericAliases = ["duck cleric", "cleric", "cl", "3"];
-        private static readonly HashSet<string> CursedAliases = ["duck cursed", "cursed", "cu", "a", "acu", "ac", "accursed duck", "accursed", "4"];
+        private static readonly HashSet<string> FighterAliases = ["duckfighter", "duckfighter1", "duckfightera", "fighter", "fighter1", "fightera", "fi", "fi1", "fia", "0"];
+        private static readonly HashSet<string> MageAliases = ["duckmage", "duckmage1", "duckmagea", "mage", "mage1", "magea", "m", "m1", "ma", "1"];
+        private static readonly HashSet<string> ThiefAliases = ["duckthief", "duckthief1", "duckthiefa", "thief", "thief1", "thiefa", "t", "t1", "ta", "2"];
+        private static readonly HashSet<string> ClericAliases = ["duckcleric", "duckcleric1", "duckclerica", "cleric", "cleric1", "clerica", "cl", "cl1", "cla", "3"];
+        private static readonly HashSet<string> AccursedAliases = ["duckcursed", "duckcursed1", "duckcurseda", "cursed", "cursed1", "curseda", "cu", "cu1", "cua", "a", "ac", "accursedduck", "accursed", "4"];
+        private static readonly HashSet<string> EtherealAliases = ["duckethereal", "duckelemental", "duckelemental1", "duckelementala", "ethereal", "elemental", "elemental1", "elementala", "etherealduck", "elementalduck", "elementalduck1", "elementalducka", "et", "e", "e1", "ea", "5"];
+
+        private static readonly HashSet<string> SentryAliases = ["ducksentry", "duckfighter2", "duckfighterb", "sentry", "fighter2", "fighterb", "s", "fi2", "fib", "6"];
+        private static readonly HashSet<string> WardAliases = ["duckward", "duckmage2", "duckmageb", "ward", "mage2", "mageb", "w", "m2", "mb", "7"];
+        private static readonly HashSet<string> RogueAliases = ["duckrogue", "duckthief2", "duckthiefb", "thief2", "thiefb", "r", "t2", "tb", "8"];
+        private static readonly HashSet<string> PhysicianAliases = ["duckphysician", "duckcleric2", "duckclericb", "cleric2", "clericb", "cl2", "clb", "ph", "9"];
+        private static readonly HashSet<string> ForbiddenAliases = ["duckforbidden", "duckcursed2", "duckcursedb", "cursed2", "cursedb", "cu2", "cub", "fo", "forbiddenduck", "forbidden", "10"];
+        private static readonly HashSet<string> ProteanAliases = ["duckprotean", "duckelemental2", "duckelementalb", "protean", "elemental2", "elementalb", "proteanduck", "elementalduck2", "elementalduckb", "pr", "e2", "eb", "11"];
+
+        
 
         private static readonly Random RNG = new Random();
         private const int DuckPartySize = 4;
@@ -113,13 +123,22 @@ namespace DucksVSGeese
                     {
                         foreach (string s in answerTokens)
                         {
-                            // add duck based on what alias the string maps into
-                            List<HashSet<string>> ducktionary = [FighterAliases, MageAliases, ThiefAliases, ClericAliases, CursedAliases];
+                            // A ducks
                             if (FighterAliases.Contains(s)) ducks.Add(new DuckFighter());
                             else if (MageAliases.Contains(s)) ducks.Add(new DuckMage());
                             else if (ThiefAliases.Contains(s)) ducks.Add(new DuckThief());
                             else if (ClericAliases.Contains(s)) ducks.Add(new DuckCleric());
-                            else if (CursedAliases.Contains(s)) ducks.Add(new DuckCursed());
+                            else if (AccursedAliases.Contains(s)) ducks.Add(new DuckCursed());
+                            else if (EtherealAliases.Contains(s)) ducks.Add(new DuckElemental());
+
+                            // B ducks
+                            else if (SentryAliases.Contains(s)) ducks.Add(new DuckFighterB());
+                            else if (WardAliases.Contains(s)) ducks.Add(new DuckMageB());
+                            else if (RogueAliases.Contains(s)) ducks.Add(new DuckThiefB());
+                            else if (PhysicianAliases.Contains(s)) ducks.Add(new DuckClericB());
+                            else if (ForbiddenAliases.Contains(s)) ducks.Add(new DuckCursedB());
+                            else if (ProteanAliases.Contains(s)) ducks.Add(new DuckElementalB());
+
                             else
                             {
                                 Console.WriteLine("Invalid duck.");
@@ -147,6 +166,9 @@ namespace DucksVSGeese
             {
                 Console.WriteLine($"\n\nBattle {i}\n");
                 List<Goose> geese = GenerateGeese();
+                foreach (Goose goose in geese) goose.SetLevel(i);
+                if (i > 1) foreach (Combatant duck in ducks) duck.LevelUp();
+
                 int round = 1;
                 while (ducks.Count > 0 && geese.Count > 0)
                 {
@@ -191,8 +213,6 @@ namespace DucksVSGeese
                 {
                     Console.WriteLine("\nThe geese have been conquered!");
                     if (i < NumBattles) Console.WriteLine("Next battle!!");
-                    // for now let's just heal up the duck party
-                    foreach (Combatant duck in ducks) duck.HealAll();
                 }
             }
 
@@ -203,7 +223,7 @@ namespace DucksVSGeese
             }
         }
 
-        static void PrintParties<T1, T2, T3, T4>(List<T1> ducks, List<T2> geese, List<T3>? felledDucks=null, List<T4>? felledGeese=null)
+        static void PrintParties<T1, T2, T3, T4>(List<T1> ducks, List<T2> geese, List<T3>? felledDucks = null, List<T4>? felledGeese = null)
            where T1 : Combatant
            where T2 : Combatant
            where T3 : Combatant
@@ -298,8 +318,8 @@ namespace DucksVSGeese
         }
         static void Main(string[] args)
         {
-            Test();
-            // Battle();
+            // Test();
+            Battle();
         }
 
     }

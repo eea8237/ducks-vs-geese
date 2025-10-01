@@ -8,7 +8,7 @@ namespace DucksVSGeese
     {
         private readonly string _combatClass;
         private readonly string _name;
-        private readonly int _maxHP;
+        private int _maxHP;
         private int _currentHP;
         /// <summary>
         /// whether this Combatant attacks allies or not
@@ -58,6 +58,7 @@ namespace DucksVSGeese
         public int MaxHP
         {
             get { return _maxHP; }
+            set { _maxHP = value; }
         }
 
         public bool AttackAllies
@@ -143,7 +144,7 @@ namespace DucksVSGeese
             int[] newHits = new int[hits.Length];
             for (int i = 0; i < newHits.Length; i++)
             {
-                newHits[i] = hits[i] * _level;
+                newHits[i] += hits[i] + hits[i] * (_level - 1) / 2;
             }
             return newHits;
         }
@@ -181,5 +182,8 @@ namespace DucksVSGeese
         }
 
         public abstract void EndTurn();
+
+        public abstract void LevelUp();
+        
     }
 }

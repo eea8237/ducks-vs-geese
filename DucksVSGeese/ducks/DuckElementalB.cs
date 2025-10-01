@@ -1,12 +1,12 @@
 namespace DucksVSGeese
 {
     /// <summary>
-    /// Class for an Elemental Duck, an alternate elemental attacker.
+    /// Class for a Protean Duck, an alternate elemental attacker.
     /// </summary>
     public class DuckElementalB : Duck
     {
-        private const int MaximumHP = 150;
-        public const string CombatantClass = "Elemental Duck";
+        private const int MaximumHP = 145;
+        public const string CombatantClass = "Protean Duck";
         private const bool AttacksAllies = false;
         public DuckElementalB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
@@ -15,7 +15,7 @@ namespace DucksVSGeese
         public DuckElementalB() : this(Duck.GetRandomName()) { }
 
         /// <summary>
-        /// Elemental Ducks attack 3 times for 10 base damage per hit. Their attacks are of a random element.
+        /// Protean Ducks attack 3 times for 10 base damage per hit. Their attacks are of a random element.
         /// </summary>
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
@@ -27,7 +27,7 @@ namespace DucksVSGeese
 
         /// <summary>
         /// Lowers the current HP of this combatant depending on the given attack.
-        /// Elemental Ducks take less damage from every attack.
+        /// Protean Ducks take less damage from every attack.
         /// </summary>
         /// <param name="attack">The attack the combatant is taking damage from.</param>
         /// <returns>The total amount of damage the attack will deal.</returns>
