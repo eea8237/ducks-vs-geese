@@ -17,7 +17,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Physical attribute
         /// </summary>
-        public struct Physical
+        public readonly struct Physical
         {
             private const DAttribute attribute = DAttribute.Physical;
             /// <summary>
@@ -56,7 +56,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Magical attribute
         /// </summary>
-        public struct Magical
+        public readonly struct Magical
         {
             private const DAttribute attribute = DAttribute.Magical;
             /// <summary>
@@ -95,7 +95,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Holy attribute
         /// </summary>
-        public struct Holy
+        public readonly struct Holy
         {
             private const DAttribute attribute = DAttribute.Holy;
             /// <summary>
@@ -134,7 +134,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Cursed attribute.
         /// </summary>
-        public struct Cursed
+        public readonly struct Cursed
         {
             private const DAttribute attribute = DAttribute.Cursed;
             /// <summary>
@@ -173,7 +173,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Poison attribute.
         /// </summary>
-        public struct Poison
+        public readonly struct Poison
         {
             private const DAttribute attribute = DAttribute.Poison;
             /// <summary>
@@ -211,7 +211,7 @@ namespace DucksVSGeese.Attributes
         /// <summary>
         /// Struct describing the Elemental attribute.
         /// </summary>
-        public struct Elemental
+        public readonly struct Elemental
         {
             private const DAttribute attribute = DAttribute.Elemental;
             /// <summary>
