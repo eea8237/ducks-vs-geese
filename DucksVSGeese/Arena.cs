@@ -222,7 +222,8 @@ namespace DucksVSGeese
                 int damage = target.TakeDamage(attack);
                 Console.WriteLine($"Attack: {attack}");
                 Console.WriteLine($"{target.GetTitle()} is attacked by {c.GetTitle()} for {damage} damage!\n{target.GetTitle()} HP: {target.GetHPString()}");
-
+                // check if this attack is a curse
+                
                 // if attack knocked the target out, remove the target from the defending party
                 if (!target.IsConscious())
                 {

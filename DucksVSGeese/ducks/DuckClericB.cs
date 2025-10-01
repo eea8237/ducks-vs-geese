@@ -5,10 +5,10 @@ namespace DucksVSGeese
     /// </summary>
     public class DuckClericB : Duck
     {
-        private const int MaxHP = 100;
+        private const int MaximumHP = 100;
         public const string CombatantClass = "Duck Physician";
         private const bool AttacksAllies = true;
-        public DuckClericB(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        public DuckClericB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
@@ -39,15 +39,7 @@ namespace DucksVSGeese
             else if (attribute == Attribute.Elemental) modifier = 1.5; // everyone takes more damage from elemental attacks (this duck takes even more damage)
             else modifier = 1.25; // take extra damage from every other attack
 
-            int totalDamage = 0;
-            foreach (int hit in attack.Hits)
-            {
-                int damage = Convert.ToInt32(hit * modifier);
-                totalDamage += damage;
-                currentHP -= damage;
-                currentHP = Combatant.CapHP(currentHP, maxHP);
-            }
-            return totalDamage;
+            return GetHit(attack.Hits, modifier);
         }
     }
 }

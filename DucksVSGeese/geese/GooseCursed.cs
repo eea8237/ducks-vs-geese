@@ -5,11 +5,11 @@ namespace DucksVSGeese
     /// </summary>
     public class GooseCursed : Goose
     {
-        private const int MaxHP = 78;
+        private const int MaximumHP = 78;
         private const string CombatantClass = "Unholy Goose";
         private const bool AttacksAllies = false;
         private const double Regeneration = .02;
-        public GooseCursed(string name) : base(CombatantClass, name, MaxHP, AttacksAllies, Regeneration)
+        public GooseCursed(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies, Regeneration)
         {
             // idk maybe do some goose stuff here
         }
@@ -51,15 +51,7 @@ namespace DucksVSGeese
             else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
             else modifier = .75; // take less damage from every other attack
 
-            int totalDamage = 0;
-            foreach (int hit in attack.Hits)
-            {
-                int damage = Convert.ToInt32(hit * modifier);
-                totalDamage += damage;
-                currentHP -= damage;
-                currentHP = Combatant.CapHP(currentHP, maxHP);
-            }
-            return totalDamage;
+            return GetHit(attack.Hits, modifier);
         }
     }
 }

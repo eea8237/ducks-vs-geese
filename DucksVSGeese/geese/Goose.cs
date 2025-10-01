@@ -20,7 +20,7 @@ namespace DucksVSGeese
         </summary>*/
         public void Regenerate()
         {
-            Heal((int)(maxHP * regenAmount));
+            Heal((int)(MaxHP * regenAmount));
         }
 
         public static string GetRandomName()

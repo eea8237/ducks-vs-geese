@@ -5,10 +5,10 @@ namespace DucksVSGeese
     /// </summary>
     public class DuckMageB : Duck
     {
-        private const int MaxHP = 160;
+        private const int MaximumHP = 160;
         public const string CombatantClass = "Duck Ward"; // goose version can be guardian
         private const bool AttacksAllies = false;
-        public DuckMageB(string name) : base(CombatantClass, name, MaxHP, AttacksAllies)
+        public DuckMageB(string name) : base(CombatantClass, name, MaximumHP, AttacksAllies)
         {
             // idk maybe do some duck stuff here
         }
@@ -38,16 +38,7 @@ namespace DucksVSGeese
             else if (attribute == Attribute.Elemental) modifier = 1.25; // take more damage from elemental attacks
             else modifier = .5; // take less damage from every other attack
 
-            int totalDamage = 0;
-            foreach (int hit in attack.Hits)
-            {
-                // maybe both of these defensive guys should take at least 1 damage. maybe just the goose version
-                int damage = Convert.ToInt32(hit * modifier);
-                totalDamage += damage;
-                currentHP -= damage;
-                currentHP = Combatant.CapHP(currentHP, maxHP);
-            }
-            return totalDamage;
+            return GetHit(attack.Hits, modifier);
         }
     }
 }

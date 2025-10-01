@@ -5,10 +5,10 @@ namespace DucksVSGeese
 {
     public abstract class Combatant
     {
-        protected readonly string combatClass;
-        protected readonly string name;
-        protected readonly int maxHP;
-        protected int currentHP;
+        private readonly string _combatClass;
+        private readonly string _name;
+        private readonly int _maxHP;
+        private int _currentHP;
         /// <summary>
         /// whether this Combatant attacks allies or not
         /// </summary>
@@ -26,32 +26,37 @@ namespace DucksVSGeese
         /// <summary>
         /// For scaling at some point.
         /// </summary>
-        private int level;
+        private int _level;
         public const int LevelCap = 1000;
         public Combatant(string combatClass, string name, int maxHP, bool attackAllies)
         {
-            this.combatClass = combatClass;
-            this._attackAllies = attackAllies;
+            _combatClass = combatClass;
+            _attackAllies = attackAllies;
             _cursedTimer = 0;
-            level = 1;
-            this.name = name;
-            this.maxHP = maxHP * level;
-            currentHP = this.maxHP;
+            _level = 1;
+            _name = name;
+            _maxHP = maxHP * _level;
+            _currentHP = _maxHP;
         }
         /**<summary>
         Name for a class of duck or goose.
         </summary>*/
         public string CombatClass
         {
-            get { return combatClass; }
+            get { return _combatClass; }
         }
         public string Name
         {
-            get { return name; }
+            get { return _name; }
         }
         public int CurrentHP
         {
-            get { return currentHP; }
+            get { return _currentHP; }
+        }
+
+        public int MaxHP
+        {
+            get { return _maxHP; }
         }
 
         public bool AttackAllies
@@ -66,24 +71,24 @@ namespace DucksVSGeese
 
         public int Level
         {
-            get { return level; }
+            get { return _level; }
             set
             {
-                level = value;
+                _level = value;
                 // level is capped at the level cap or 0
-                level = level > LevelCap ? LevelCap : level < 0 ? 0 : level;
+                _level = _level > LevelCap ? LevelCap : _level < 0 ? 0 : _level;
             }
         }
 
 
         public string GetHPString()
         {
-            return $"{currentHP}/{maxHP}";
+            return $"{_currentHP}/{_maxHP}";
         }
 
         public string GetTitle()
         {
-            return $"{combatClass} {name}";
+            return $"{_combatClass} {_name}";
         }
         public override string? ToString()
         {
@@ -105,7 +110,7 @@ namespace DucksVSGeese
         * </summary> */
         public bool IsConscious()
         {
-            return currentHP > 0;
+            return _currentHP > 0;
         }
 
         /** <summary>
@@ -114,9 +119,9 @@ namespace DucksVSGeese
         * </summary> */
         public void Heal(int amount)
         {
-            currentHP += amount;
+            _currentHP += amount;
             // in case heal amount goes above or below allowable HP
-            currentHP = currentHP < maxHP ? currentHP : maxHP;
+            _currentHP = _currentHP < _maxHP ? _currentHP : _maxHP;
         }
 
         /** <summary>
@@ -124,7 +129,7 @@ namespace DucksVSGeese
         * </summary> */
         public void HealAll()
         {
-            currentHP = maxHP;
+            _currentHP = _maxHP;
         }
 
         public static int CapHP(int hp, int? cap = null)
@@ -144,7 +149,7 @@ namespace DucksVSGeese
             int[] newHits = new int[hits.Length];
             for (int i = 0; i < newHits.Length; i++)
             {
-                newHits[i] = hits[i] * level;
+                newHits[i] = hits[i] * _level;
             }
             return newHits;
         }
@@ -160,8 +165,25 @@ namespace DucksVSGeese
             if (_cursedTimer > 0)
             {
                 _cursedTimer--;
-                if (_cursedTimer == 0) _attackAllies = !_attackAllies; // go back to normal
+                if (_cursedTimer == 0)
+                {
+                    _attackAllies = !_attackAllies; // go back to normal
+                    Console.WriteLine($"{_name} is no longer cursed!");
+                }
             }
+        }
+
+        protected int GetHit(int[] hits, double modifier)
+        {
+            int totalDamage = 0;
+            foreach (int hit in hits)
+            {
+                int damage = Convert.ToInt32(hit * modifier);
+                totalDamage += damage;
+                _currentHP -= damage;
+                _currentHP = Combatant.CapHP(_currentHP, _maxHP);
+            }
+            return totalDamage;
         }
 
         public abstract void EndTurn();
