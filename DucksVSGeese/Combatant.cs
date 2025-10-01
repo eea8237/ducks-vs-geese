@@ -12,12 +12,16 @@ namespace DucksVSGeese
         /// <summary>
         /// whether this Combatant attacks allies or not
         /// </summary>
-        protected readonly bool attackAllies;
+        private bool _attackAllies;
 
         /// <summary>
         /// whether this Combatant attacks allies or not
         /// </summary>
-        protected int cursedTimer;
+        private int _cursedTimer;
+        /// <summary>
+        /// Default amount of time a curse lasts for.
+        /// </summary>
+        private const int CurseTime = 5;
 
         /// <summary>
         /// For scaling at some point.
@@ -27,11 +31,11 @@ namespace DucksVSGeese
         public Combatant(string combatClass, string name, int maxHP, bool attackAllies)
         {
             this.combatClass = combatClass;
-            this.attackAllies = attackAllies;
-            cursedTimer = 0;
+            this._attackAllies = attackAllies;
+            _cursedTimer = 0;
             level = 1;
             this.name = name;
-            this.maxHP = maxHP*level;
+            this.maxHP = maxHP * level;
             currentHP = this.maxHP;
         }
         /**<summary>
@@ -52,17 +56,12 @@ namespace DucksVSGeese
 
         public bool AttackAllies
         {
-            get { return attackAllies; }
+            get { return _attackAllies; }
         }
 
         public int CursedTimer
         {
-            get { return cursedTimer; }
-            set
-            {
-                cursedTimer = value;
-                if (cursedTimer < 0) cursedTimer = 0;
-            }
+            get { return _cursedTimer; }
         }
 
         public int Level
@@ -149,5 +148,22 @@ namespace DucksVSGeese
             }
             return newHits;
         }
+
+        public void Curse()
+        {
+            // attack the opposite side until the curse timer ends
+            _attackAllies = !_attackAllies;
+            _cursedTimer = CurseTime;
+        }
+        public void DecrementCurse()
+        {
+            if (_cursedTimer > 0)
+            {
+                _cursedTimer--;
+                if (_cursedTimer == 0) _attackAllies = !_attackAllies; // go back to normal
+            }
+        }
+
+        public abstract void EndTurn();
     }
 }

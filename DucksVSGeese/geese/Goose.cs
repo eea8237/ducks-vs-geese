@@ -27,5 +27,11 @@ namespace DucksVSGeese
         {
             return GooseNames[RNG.Next(GooseNames.Length)];
         }
+
+        public override void EndTurn()
+        {
+            Regenerate();
+            DecrementCurse();
+        }
     }
 }

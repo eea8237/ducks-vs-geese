@@ -16,5 +16,10 @@ namespace DucksVSGeese
             return DuckNames[RNG.Next(DuckNames.Length)];
         }
 
+        public override void EndTurn()
+        {
+            DecrementCurse();
+        }
+
     }
 }
