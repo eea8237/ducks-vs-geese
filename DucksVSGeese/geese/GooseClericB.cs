@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Goose Medic, an alternate holy goose.
@@ -14,7 +16,7 @@ namespace DucksVSGeese.geese
             // idk maybe do some goose stuff here
         }
 
-        public GooseClericB() : this(Goose.GetRandomName()) {}
+        public GooseClericB() : this(Goose.GetRandomName()) { }
 
         public static new string ClassName
         {
@@ -27,7 +29,7 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Surgical Pecks", ScaleHits([-5, -5]), Attribute.Holy);
+            return new Attack("Surgical Pecks", ScaleHits([-5, -5]), DAttribute.Holy);
         }
 
         /// <summary>
@@ -39,11 +41,11 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Holy && attack.Hits[0] > 0) modifier = -.25; // get healed by harmful holy attacks
-            else if (attribute == Attribute.Cursed || attribute == Attribute.Holy) modifier = .25; // greatly resist cursed attacks and get healed less by helpful holy attacks
-            else if (attribute == Attribute.Cursed) modifier = .75; // resist cursed attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.5; // everyone takes more damage from elemental attacks (this duck takes even more damage)
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Holy && attack.Hits[0] > 0) modifier = -.25; // get healed by harmful holy attacks
+            else if (attribute == DAttribute.Holy) modifier = .25; // get healed less by helpful holy attacks
+            else if (attribute == DAttribute.Cursed) modifier = .75; // resist cursed attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.5; // everyone takes more damage from elemental attacks (this duck takes even more damage)
             else modifier = 1.25; // take extra damage from every other attack
 
             return GetHit(attack.Hits, modifier);

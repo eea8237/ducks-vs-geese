@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Goose Priest, a basic holy attacker.
@@ -27,7 +29,7 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("All That Is Goose and Holy", ScaleHits([5, 5]), Attribute.Holy);
+            return new Attack("All That Is Goose and Holy", ScaleHits([5, 5]), DAttribute.Holy);
         }
 
         /// <summary>
@@ -39,15 +41,14 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Holy && attack.Hits[0] > 0) modifier = -.5; // get healed by harmful holy attacks
-            else if (attribute == Attribute.Cursed || attribute == Attribute.Holy) modifier = .5; // greatly resist cursed attacks and get healed less by helpful holy attacks
-            else if (attribute == Attribute.Cursed) modifier = .5; // greatly resist cursed attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Holy && attack.Hits[0] > 0) modifier = -.5; // get healed by harmful holy attacks
+            else if (attribute == DAttribute.Cursed || attribute == DAttribute.Holy) modifier = .5; // greatly resist cursed attacks and get healed less by helpful holy attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
             else modifier = 1.15; // take extra damage from every other attack
 
             return GetHit(attack.Hits, modifier);
-            
+
         }
     }
 }

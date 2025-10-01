@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for an Imprisoned Goose, an alternate cursed goose.
@@ -27,7 +29,7 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Knowledge No Bird Was Meant To Know", ScaleHits([1]), Attribute.Cursed, true);
+            return new Attack("Knowledge No Bird Was Meant To Know", ScaleHits([1]), DAttribute.Cursed, true);
         }
 
         /// <summary>
@@ -39,10 +41,10 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Cursed) modifier = 0.5; // greatly resist cursed attacks
-            else if (attribute == Attribute.Holy) modifier = 1.5; // take a lot of extra damage from holy attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Cursed) modifier = 0.5; // greatly resist cursed attacks
+            else if (attribute == DAttribute.Holy) modifier = 1.5; // take a lot of extra damage from holy attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
             else modifier = .75; // take less damage from every other attack
 
             return GetHit(attack.Hits, modifier);

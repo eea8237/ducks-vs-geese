@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Universal Goose, an alternate elemental attacker.
@@ -26,8 +28,8 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            Attribute[] attributes = Enum.GetValues<Attribute>();
-            Attribute attribute = attributes[RNG.Next(attributes.Length)];
+            DAttribute[] attributes = Enum.GetValues<DAttribute>();
+            DAttribute attribute = attributes[RNG.Next(attributes.Length)];
             return new Attack($"Burst of {attribute} Flaps", ScaleHits([5, 10]), attribute);
         }
 
@@ -40,7 +42,7 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier = .75;
-            
+
             return GetHit(attack.Hits, modifier);
         }
     }

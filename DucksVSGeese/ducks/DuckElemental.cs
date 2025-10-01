@@ -1,4 +1,6 @@
-namespace DucksVSGeese.ducks
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
     /// Class for an Ethereal Duck, a basic elemental attacker.
@@ -31,7 +33,7 @@ namespace DucksVSGeese.ducks
             if (chance < 2) hits[0] /= 2;
             else if (chance > 7) hits[0] *= 2;
 
-            return new Attack("Fleeting Flaps", ScaleHits(hits), Attribute.Elemental);
+            return new Attack("Fleeting Flaps", ScaleHits(hits), DAttribute.Elemental);
         }
 
         /// <summary>

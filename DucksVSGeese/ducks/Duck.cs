@@ -1,4 +1,4 @@
-namespace DucksVSGeese.ducks
+namespace DucksVSGeese.Ducks
 {
     public abstract class Duck : Combatant
     {
@@ -11,7 +11,7 @@ namespace DucksVSGeese.ducks
         {
             // idk maybe do some duck stuff here
         }
-        public static string ClassName
+        public static new string ClassName
         {
             get { return CombatantClass; }
         }

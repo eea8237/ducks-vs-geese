@@ -1,4 +1,6 @@
-namespace DucksVSGeese.ducks
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
     /// Class for a Duck Mage, a basic magical attacker.
@@ -25,7 +27,7 @@ namespace DucksVSGeese.ducks
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Feather Bombardment", ScaleHits([9, 9, 9, 9]), Attribute.Magical);
+            return new Attack("Feather Bombardment", ScaleHits([9, 9, 9, 9]), DAttribute.Magical);
         }
 
         /// <summary>
@@ -37,9 +39,9 @@ namespace DucksVSGeese.ducks
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Magical) modifier = .75; // take less damage from magical attacks
-            else if (attribute == Attribute.Physical || attribute == Attribute.Elemental) modifier = 1.25; // take extra damage from physical and elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Magical) modifier = .75; // take less damage from magical attacks
+            else if (attribute == DAttribute.Physical || attribute == DAttribute.Elemental) modifier = 1.25; // take extra damage from physical and elemental attacks
 
             return GetHit(attack.Hits, modifier);
         }

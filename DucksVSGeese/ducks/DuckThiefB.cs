@@ -1,4 +1,6 @@
-namespace DucksVSGeese.ducks
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
     /// Class for a Duck Rogue, an alternate poison attacker.
@@ -40,7 +42,7 @@ namespace DucksVSGeese.ducks
                 else if (gamble >= 10) hits[i] = 1;
                 // 10% chance for 0 damage
             }
-            return new Attack("Nab", ScaleHits(hits), Attribute.Poison);
+            return new Attack("Nab", ScaleHits(hits), DAttribute.Poison);
         }
 
         /// <summary>
@@ -52,9 +54,9 @@ namespace DucksVSGeese.ducks
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Poison) modifier = .75; // take less damage from poison attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Poison) modifier = .75; // take less damage from poison attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
 
             return GetHit(attack.Hits, modifier);
         }

@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Goose Vandal, a basic poison attacker.
@@ -33,7 +35,7 @@ namespace DucksVSGeese.geese
                 // 1 in 3 chance for 10 damage, otherwise 5 damage
                 hits[i] = RNG.Next(3) == 0 ? 10 : 5;
             }
-            return new Attack("Harrass & Deface", ScaleHits(hits), Attribute.Poison);
+            return new Attack("Harrass & Deface", ScaleHits(hits), DAttribute.Poison);
         }
 
         /// <summary>
@@ -45,9 +47,9 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Poison) modifier = .75; // take less damage from poison attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Poison) modifier = .75; // take less damage from poison attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
 
             return GetHit(attack.Hits, modifier);
         }

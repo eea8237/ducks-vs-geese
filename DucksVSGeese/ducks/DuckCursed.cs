@@ -1,4 +1,6 @@
-namespace DucksVSGeese.ducks
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
     /// Class for an Accursed Duck, a basic cursed attacker.
@@ -37,7 +39,7 @@ namespace DucksVSGeese.ducks
                     hits[i] += RNG.Next(1, 36);
                 }
             }
-            return new Attack("Unholy Quack", ScaleHits(hits), Attribute.Cursed);
+            return new Attack("Unholy Quack", ScaleHits(hits), DAttribute.Cursed);
         }
 
         /// <summary>
@@ -49,10 +51,10 @@ namespace DucksVSGeese.ducks
         public override int TakeDamage(Attack attack)
         {
             double modifier;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Cursed) modifier = 0.5; // greatly resist cursed attacks
-            else if (attribute == Attribute.Holy) modifier = 1.5; // take a lot of extra damage from holy attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Cursed) modifier = 0.5; // greatly resist cursed attacks
+            else if (attribute == DAttribute.Holy) modifier = 1.5; // take a lot of extra damage from holy attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
             else modifier = .75; // take less damage from every other attack
 
             return GetHit(attack.Hits, modifier);

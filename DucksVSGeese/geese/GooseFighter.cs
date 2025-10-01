@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Goose Warrior, a basic physical attacker.
@@ -26,7 +28,7 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Eye Peck", ScaleHits([15]), Attribute.Physical);
+            return new Attack("Eye Peck", ScaleHits([15]), DAttribute.Physical);
         }
 
         /// <summary>
@@ -38,9 +40,9 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Physical) modifier = .75; // take less damage from physical attacks
-            else if (attribute == Attribute.Magical || attribute == Attribute.Elemental) modifier = 1.25; // take extra damage from magic and elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Physical) modifier = .75; // take less damage from physical attacks
+            else if (attribute == DAttribute.Magical || attribute == DAttribute.Elemental) modifier = 1.25; // take extra damage from magic and elemental attacks
 
             return GetHit(attack.Hits, modifier);
         }

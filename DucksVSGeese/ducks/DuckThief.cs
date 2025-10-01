@@ -1,4 +1,6 @@
-namespace DucksVSGeese.ducks
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Ducks
 {
     /// <summary>
     /// Class for a Duck Thief, a basic poison attacker.
@@ -32,7 +34,7 @@ namespace DucksVSGeese.ducks
                 // 1 in 3 chance for 20 damage, otherwise 10 damage
                 hits[i] = RNG.Next(3) == 0 ? 20 : 10;
             }
-            return new Attack("Snatch", ScaleHits(hits), Attribute.Poison);
+            return new Attack("Snatch", ScaleHits(hits), DAttribute.Poison);
         }
 
         /// <summary>
@@ -44,9 +46,9 @@ namespace DucksVSGeese.ducks
         public override int TakeDamage(Attack attack)
         {
             double modifier = 1.0;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Poison) modifier = .75; // take less damage from poison attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Poison) modifier = .75; // take less damage from poison attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.25; // everyone takes more damage from elemental attacks
 
             return GetHit(attack.Hits, modifier);
         }

@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for a Goose Guardian, a more defensive Goose Witch.
@@ -26,7 +28,7 @@ namespace DucksVSGeese.geese
         /// <returns>An instance of the class Attack.</returns>
         public override Attack Attack()
         {
-            return new Attack("Early Migration", ScaleHits([1, 1, 1]), Attribute.Magical);
+            return new Attack("Early Migration", ScaleHits([1, 1, 1]), DAttribute.Magical);
         }
 
         /// <summary>
@@ -38,10 +40,10 @@ namespace DucksVSGeese.geese
         public override int TakeDamage(Attack attack)
         {
             double modifier;
-            Attribute attribute = attack.Attribute;
-            if (attribute == Attribute.Magical) modifier = .1; // take little damage from magical attacks
-            else if (attribute == Attribute.Physical) modifier = 1.2; // take a lot more damage from physical attacks
-            else if (attribute == Attribute.Elemental) modifier = 1.15; // take more damage from elemental attacks
+            DAttribute attribute = attack.DAttribute;
+            if (attribute == DAttribute.Magical) modifier = .1; // take little damage from magical attacks
+            else if (attribute == DAttribute.Physical) modifier = 1.2; // take a lot more damage from physical attacks
+            else if (attribute == DAttribute.Elemental) modifier = 1.15; // take more damage from elemental attacks
             else modifier = .5; // take less damage from every other attack
 
             return GetHit(attack.Hits, modifier);

@@ -1,4 +1,4 @@
-namespace DucksVSGeese.geese
+namespace DucksVSGeese.Geese
 {
     public abstract class Goose : Combatant
     {

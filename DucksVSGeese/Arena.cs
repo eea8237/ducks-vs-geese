@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.Reflection;
-using DucksVSGeese.geese;
-using DucksVSGeese.ducks;
+using DucksVSGeese.Geese;
+using DucksVSGeese.Ducks;
+using DucksVSGeese.Attributes;
 
 namespace DucksVSGeese
 {
@@ -26,13 +27,13 @@ namespace DucksVSGeese
         private static readonly Random RNG = new Random();
         private const int DuckPartySize = 4;
         private const int GoosePartySize = 6;
-        private const int GooseTypes = 5;
+        private const int GooseTypes = 12;
         private const int NumBattles = 5;
         static void Test()
         {
             try
             {
-                Attack test = new Attack("Test Attack", [1, 2, 3, 4], Attribute.Elemental);
+                Attack test = new Attack("Test Attack", [1, 2, 3, 4], DAttribute.Elemental);
                 for (int i = 0; i < test.Hits.Length; i++)
                 {
                     Console.Write($"{test.Hits[i]} ");
@@ -183,7 +184,11 @@ namespace DucksVSGeese
                     {
                         Combatant? felled = Fight(ducks, geese, skip);
                         Console.WriteLine();
-                        if (felled != null) felledGeese.Add(felled);
+                        if (felled != null)
+                        {
+                            if (felled is Goose) felledGeese.Add(felled);
+                            if (felled is Duck) felledDucks.Add(felled);
+                        } 
                         foreach (Duck duck in ducks) duck.EndTurn();
                     }
 
@@ -193,11 +198,24 @@ namespace DucksVSGeese
                         // geese go second
                         Combatant? felled = Fight(geese, ducks, skip);
                         Console.WriteLine();
-                        if (felled != null) felledDucks.Add(felled);
+                        if (felled != null)
+                        {
+                            if (felled is Goose) felledGeese.Add(felled);
+                            if (felled is Duck) felledDucks.Add(felled);
+                        } 
                         foreach (Goose goose in geese) goose.EndTurn();
                     }
                     round++;
+
+                    // as a temporary fix to the infinite loop issues just cut the battle short if it goes on for too long
+                    if (round > 100)
+                    {
+                        Console.WriteLine("\nBoth sides are exhausted...");
+                        Console.WriteLine("The geese retreat back to their pond.");
+                        break;
+                    }
                 }
+
                 Console.WriteLine($"Battle {i} Over!\n");
                 PrintParties(ducks, geese, felledDucks, felledGeese);
                 // reset the felled geese list
@@ -206,7 +224,6 @@ namespace DucksVSGeese
                 // perhaps do this with the ducks too if i want to complicate this a little more
                 // like give the option to add new ducks inbetween battles
                 // probably not for free though
-
 
                 if (ducks.Count == 0) // if ducks go down it's game over
                 {
@@ -306,16 +323,39 @@ namespace DucksVSGeese
                         break;
                     case 3:
                         // i also feel like there will be an issue if there's a full party of clerics on both sides, so check the goose party to see if everyone else is already a cleric
-                        if (geese.Count == GoosePartySize - 1) // only do this check if we're filling out the last space
-                        {
-                            int clerics = 0;
-                            foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.ClassName) clerics++;
-                            // if the party isn't entirely clerics you can add another cleric
-                            if (clerics < GoosePartySize - 1) geese.Add(new GooseCleric());
-                        } else geese.Add(new GooseCleric());
+                        // if (geese.Count == GoosePartySize - 1) // only do this check if we're filling out the last space
+                        // {
+                        //     int clerics = 0;
+                        //     foreach (Goose goose in geese) if (goose.CombatClass == GooseCleric.ClassName) clerics++;
+                        //     // if the party isn't entirely clerics you can add another cleric
+                        //     if (clerics < GoosePartySize - 1) geese.Add(new GooseCleric());
+                        // } else geese.Add(new GooseCleric());
+                        geese.Add(new GooseCleric()); // whatever i'll just deal with it later
+                        // similar issue occurs if you've got a bunch of accursed ducks
                         break;
                     case 4:
                         geese.Add(new GooseCursed());
+                        break;
+                    case 5:
+                        geese.Add(new GooseElemental());
+                        break;
+                    case 6:
+                        geese.Add(new GooseFighterB());
+                        break;
+                    case 7:
+                        geese.Add(new GooseMageB());
+                        break;
+                    case 8:
+                        geese.Add(new GooseThiefB());
+                        break;
+                    case 9:
+                        geese.Add(new GooseClericB());
+                        break;
+                    case 10:
+                        geese.Add(new GooseCursedB());
+                        break;
+                    case 11:
+                        geese.Add(new GooseElementalB());
                         break;
                 }
             }

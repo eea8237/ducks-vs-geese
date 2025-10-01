@@ -1,4 +1,6 @@
-namespace DucksVSGeese.geese
+using DucksVSGeese.Attributes;
+
+namespace DucksVSGeese.Geese
 {
     /// <summary>
     /// Class for an Ephemeral Goose, a basic elemental attacker.
@@ -32,7 +34,7 @@ namespace DucksVSGeese.geese
             if (chance < 2) hits[0] /= 2;
             else if (chance > 7) hits[0] *= 2;
 
-            return new Attack("Drag to a Submerged Grave", ScaleHits(hits), Attribute.Elemental);
+            return new Attack("Drag to a Submerged Grave", ScaleHits(hits), DAttribute.Elemental);
         }
 
         /// <summary>
