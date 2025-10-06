@@ -2,7 +2,7 @@ namespace DucksVSGeese.Geese
 {
     public abstract class Goose : Combatant
     {
-        protected static readonly Random RNG = new();
+        public static Random RNG = new();
         private const string CombatantClass = "Goose";
         private static readonly string[] GooseNames = ["Goosetaf", "Agoosetus", "Agoosetine", "Goose", "Geese", "Gayce", "Gus", "Giise", "Gysse", "Asparagoose", "Goosewich", "Gooselin", "Gooserett", "Bildegoose", "Honkrietta", "Honking", "Bread?", "Fishkiller", "Duckslayer", "HONK", "Honk", "Loose", "Choose", "Moose", "Noose", "Joose", "Gose", "Oose", "Esoog", "Canada"];
         protected double regenAmount;
